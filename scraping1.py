@@ -6,8 +6,10 @@ Created on Mon Mar  9 22:29:34 2020
 """
 
 from bs4 import BeautifulSoup
+import certifi
 import urllib3
 import csv
+import re
 #from halo import Halo
 def getImageurl(url):
     r1 = http.request('GET', url)
@@ -17,7 +19,34 @@ def getImageurl(url):
         imgurl= imgurl.decode('utf-8')
         imgurl = imgurl.replace('\n','')
        
-    return imgurl    
+    return imgurl  
+def getLanguage(url):
+    r1 = http.request('GET', url)
+    soup = BeautifulSoup(r1.data, 'lxml')
+    for a in soup.find_all("a", href=re.compile('language')):
+        language= a.text
+        #print(language)
+    return language
+def getPlot(url):
+    r1 = http.request('GET', url)
+    soup = BeautifulSoup(r1.data, 'lxml')
+    for a in soup.find_all('div',class_='inline canwrap') :
+        plot= a.span.text
+        #print(plot)
+    return plot
+def getWatch(url):
+    #url1="https://www.rottentomatoes.com/search/?search=%s"
+    url1="https://www.rottentomatoes.com/m/pokemon_the_movie_mewtwo_strikes_back_evolution"
+    print("entered")
+    #url1=url1+str(url)
+    r1 = http.request('GET', url1)
+    print(url1)
+    soup = BeautifulSoup(r1.data, 'lxml')
+    #print(soup)
+    choice=soup.find("ul", class_='affiliates__list')
+    print(choice.a.get('href'))
+        #link= a.href
+        
 def getreviews(url):
     List=[]
     r1 = http.request('GET', url)
@@ -33,12 +62,14 @@ def getreviews(url):
     return List    
 f = open('imdb.csv', 'w',newline='')
 csvfile = csv.writer(f)
-csvfile.writerow(["Name", "Year of release","Runtime","Cast_Crew","ImageURL", "Rating", "Genre", "Reviews"])
+csvfile.writerow(["Name", "Year of release","Runtime","Language","Cast_Crew","ImageURL","Plot", "Rating", "Genre", "Reviews"])
 #pages = int(raw_input("enter number of pages to scrap:"))
 pages=1
 url = 'https://www.imdb.com/search/title/?title_type=feature&release_date=2019-01-01,2020-01-01&genres=action'
 
-http = urllib3.PoolManager()
+http = urllib3.PoolManager(
+        cert_reqs='CERT_REQUIRED',
+        ca_certs=certifi.where())
 i = 1
 while pages > 0:
     #request = urllib3.request(url)
@@ -67,7 +98,10 @@ while pages > 0:
         print(imdburl)
         urlp2= "https://www.imdb.com"+imdburl
         imageurl= getImageurl(urlp2)
+        language= getLanguage(urlp2)
+        plot= getPlot(urlp2)
         #print(imageurl)
+        #link= getWatch(name)
         imdburl1= imdburl.split("/")
         print(imdburl1[2])
         urlp1= "https://www.imdb.com/title/"+imdburl1[2]+"/reviews?ref_=tt_urv"
@@ -111,7 +145,7 @@ while pages > 0:
             votes = "NA"
         #print(votes)
         
-        csvfile.writerow([name, '2019', runtime,cast,imageurl,rating, genreList, reviewsList])                                   # write the fetched values to the csv file
+        csvfile.writerow([name, '2019', runtime,language,cast,imageurl,plot,rating, genreList, reviewsList])                                   # write the fetched values to the csv file
     url = soup.find('a', class_="lister-page-next").get('href')                                         # get the url of next page to be scraped
     if not url.startswith("http://www.imdb.com/search/title"):                                          # check if url is valid or not
         url = "http://www.imdb.com/search/title" + url

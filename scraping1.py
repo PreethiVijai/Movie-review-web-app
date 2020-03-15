@@ -34,17 +34,38 @@ def getPlot(url):
         plot= a.span.text
         #print(plot)
     return plot
-def getWatch(url):
+def getWatch(title):
+    title = title.replace(" ", "_")
+    title = title.replace(".", "")
+    title = title.replace(":", "")
+    title = title.replace("-", "")
+    title = title.replace(",", "")
+    title = title.replace("'", "")
+    title = title.replace("__", "_")
+    
+    isascii = lambda s: len(s) == len(s.encode())
+    if (not isascii):
+        print("cannot do")
+    else:
+        print("It may have been an ascii-encoded unicode string")
+        title.encode('utf-8')
+        title=title.replace(u'\xe9', 'e')
+        print(title)
     #url1="https://www.rottentomatoes.com/search/?search=%s"
-    url1="https://www.rottentomatoes.com/m/pokemon_the_movie_mewtwo_strikes_back_evolution"
-    print("entered")
+        url1="https://www.rottentomatoes.com/m/"+ str(title)
+        print("entered")
     #url1=url1+str(url)
-    r1 = http.request('GET', url1)
-    print(url1)
-    soup = BeautifulSoup(r1.data, 'lxml')
-    #print(soup)
-    choice=soup.find("ul", class_='affiliates__list')
-    print(choice.a.get('href'))
+        r1 = http.request('GET', url1)
+        print(url1)
+        soup = BeautifulSoup(r1.data, 'lxml')
+        #print(soup)
+        choice=soup.find("ul", class_='affiliates__list')
+        if(choice==None):
+            print("not found")
+        else:    
+            for ch1 in choice.find_all('a'):
+                print(ch1.get('href'))
+        
         #link= a.href
         
 def getreviews(url):
@@ -101,7 +122,7 @@ while pages > 0:
         language= getLanguage(urlp2)
         plot= getPlot(urlp2)
         #print(imageurl)
-        #link= getWatch(name)
+        link= getWatch(name)
         imdburl1= imdburl.split("/")
         print(imdburl1[2])
         urlp1= "https://www.imdb.com/title/"+imdburl1[2]+"/reviews?ref_=tt_urv"

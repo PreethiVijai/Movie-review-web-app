@@ -7,13 +7,41 @@ from tweepy import API
 from dotenv import load_dotenv
 from pathlib import Path
 import os
+import json
 
 
 class StdOutListener(StreamListener):
+
     def on_data(self, data):
-        producer.produce("test", data.encode('utf-8'))
-        print(data)
+
+        tweet = json.loads(data)
+
+        msg = {'id': tweet['id_str'], 'tweet': tweet['text'], 'tweet_coordinates': None, 'tweet_place': None, 'user_place': None}
+
+        if tweet['coordinates']:
+
+            msg['tweet_coordinates'] = tweet['coordinates']
+
+        elif tweet['place']:
+
+            # tweet['place']['full_name'].split(',')
+
+            msg['tweet_place'] = tweet['place']['full_name']
+
+
+        elif tweet['user']['location']:
+
+            # tweet['user']['location'].split(',')
+
+            msg['user_place'] = tweet['user']['location']
+
+        msg = json.dumps(msg)
+
+        producer.produce("test",msg.encode('utf-8'))
+
+
         return True
+
     def on_error(self, status):
         print(status)
 

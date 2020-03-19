@@ -1,0 +1,79 @@
+body {
+  background-color: #fbe0d7;
+  margin: 0;
+  font-family: "Georgia";
+  font-weight: thicker;
+  font-style: italic;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#page .header {
+  padding: 50px;
+  text-align: center;
+  color: hsl(283, 86%, 30%);
+}
+
+::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+#page .searchbar #myInput {
+  box-sizing: border-box;
+  border-radius: 25px;
+  opacity: 1px;
+  width: 300px;
+}
+#page .searchbar .gosearch {
+  cursor: pointer;
+}
+#page #all_details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  max-height: 100px;
+}
+#page #all_details div {
+  padding: 20px;
+  background-color: grey;
+  box-sizing: border-box;
+  border-radius: 25px;
+}
+#page #all_details #moviereview {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+#page #all_details #moviereview div {
+  border: 1px solid #000000;
+  padding: 100 px;
+  margin: 0;
+  height: 150px;
+}
+#page #all_details #twitterfeed #news {
+  font-size: 35px;
+  font-style: normal;
+  font-weight: bolder;
+  text-align: center;
+}
+#page #all_details #twitterfeed #feed {
+  border: 1px solid #000000;
+  height: 400px;
+}
+#page #all_details #screen_location {
+  display: grid;
+  grid-template-rows: 0fr 1fr;
+  grid-gap: 10px;
+}
+#page #all_details #screen_location #location {
+  border: 1px solid #000000;
+  margin: 0;
+  height: 60px;
+  text-align: left;
+}
+#page #all_details #screen_location #maps {
+  border: 1px solid #000000;
+  margin: 0;
+}

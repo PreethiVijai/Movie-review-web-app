@@ -1,3 +1,4 @@
+# Run in google cloud shell using docker-compose up command.
 version: '2'
 
 services:

@@ -13,8 +13,8 @@ import os
 # username = os.getenv("USERNAME")
 # password = os.getenv("PASSWORD")
 
-username = "scrumlords"
-password = "Bda2020$!"
+username = ""
+password = ""
 
 client = MongoClient("mongodb+srv://"+username+":"+password+"@cluster0-kpzsd.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["realTime"]

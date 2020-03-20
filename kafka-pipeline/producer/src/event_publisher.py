@@ -54,10 +54,10 @@ class StdOutListener(StreamListener):
 # access_token = os.getenv("ACCESS_TOKEN")
 # access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
 
-consumer_key = 'cbOz7WdSq3pscOHcrCPeY4YyV'
-consumer_secret = 'PhGK56KBym80X0gCBP8OuHU3BZWFrmWiAKsjJ5PncMEIBBnP0m'
-access_token = '1046554892582641664-UIUnXcIgtqMgA9hZdhcURDMelfsmTN'
-access_token_secret = 'nxZM3dYEVtp62IUslanUzeRCnBwNFU2NFv3Q0Nf8DoUr4'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
 
 producer = Producer({'bootstrap.servers': 'kafka:9092'})
 listener = StdOutListener()

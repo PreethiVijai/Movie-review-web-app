@@ -1,0 +1,29 @@
+version: "2"
+services:
+        zookeeper:
+                image: "confluent/zookeeper:latest"
+                ports:
+                        - "2181:2181"
+        kafka:
+                image: "confluent/kafka:latest"
+                ports:
+                        - "9092:9092"
+                labels:
+                        kompose.service.type: NodePort
+                environment:
+                        - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+                        - ALLOW_PLAINTEXT_LISTENER="yes"
+                        - KAFKA_CREATE_TOPICS="sample:1:1"
+                        - KAFKA_ADVERTISED_HOST=kafka
+                        - KAFKA_ADVERTISED_PORT=9092
+                        - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+        producer:
+                image: "gcr.io/<PROJECT ID>/producer:v1"
+                ports:
+                        - "5000:5000"
+                command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python producer.py"
+        consumer:
+                image: "gcr.io/<PROJECT ID>/consumer:v1"
+                ports:
+                        - "6000:6000"
+                command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python consumer.py"

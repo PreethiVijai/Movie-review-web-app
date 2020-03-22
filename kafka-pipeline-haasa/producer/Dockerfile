@@ -15,4 +15,4 @@ EXPOSE 80
 # copy config files into filesystem
 COPY src .
 
-CMD [ "python3", "event_publisher.py" ]
+CMD [ "python3", "event_publisher.py", "-u" ]

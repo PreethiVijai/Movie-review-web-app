@@ -1,11 +1,13 @@
 version: "2"
 services:
         zookeeper:
-                image: "confluent/zookeeper:latest"
+                image: "confluentinc/cp-zookeeper:latest"
                 ports:
                         - "2181:2181"
+                environment:
+                        - ZOOKEEPER_CLIENT_PORT=2181
         kafka:
-                image: "confluent/kafka:latest"
+                image: "confluentinc/cp-kafka:latest"
                 ports:
                         - "9092:9092"
                 labels:
@@ -14,16 +16,15 @@ services:
                         - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
                         - ALLOW_PLAINTEXT_LISTENER="yes"
                         - KAFKA_CREATE_TOPICS="sample:1:1"
-                        - KAFKA_ADVERTISED_HOST=kafka
-                        - KAFKA_ADVERTISED_PORT=9092
                         - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+                command: ["bash", "-c", "export DOCKERIZE_VERSION=v0.6.1; unset KAFKA_PORT; apt-get update && apt-get install -y wget; wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz; dockerize -wait tcp://zookeeper:2181 -timeout 300s -wait-retry-interval 30s /etc/confluent/docker/run"] 
         producer:
-                image: "gcr.io/<PROJECT ID>/producer:v1"
+                image: "gcr.io/<PROJECT_ID>/producer:v1"
                 ports:
                         - "5000:5000"
                 command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python producer.py"
         consumer:
-                image: "gcr.io/<PROJECT ID>/consumer:v1"
+                image: "gcr.io/<PROJECT_ID>/consumer:v1"
                 ports:
                         - "6000:6000"
                 command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python consumer.py"

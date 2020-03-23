@@ -88,8 +88,8 @@ def getreviews(url):
     return List    
 
 
-username = "scrumlords"
-password = "Bda2020$!"
+username = ""
+password = ""
 
 client = MongoClient("mongodb+srv://"+username+":"+password+"@cluster0-kpzsd.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]

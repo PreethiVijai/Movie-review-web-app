@@ -1,0 +1,32 @@
+version: "2"
+services:
+        zookeeper:
+                image: "confluentinc/cp-zookeeper:latest"
+                ports:
+                        - "2181:2181"
+                environment:
+                        - ZOOKEEPER_CLIENT_PORT=${ZOOKEEPER_CLIENT_PORT}
+        kafka:
+                image: "confluentinc/cp-kafka:latest"
+                ports:
+                        - "9092:9092"
+                labels:
+                        kompose.service.type: NodePort
+                environment:
+                        - KAFKA_ZOOKEEPER_CONNECT=${KAFKA_ZOOKEEPER_CONNECT}
+                        - ALLOW_PLAINTEXT_LISTENER=${ALLOW_PLAINTEXT_LISTENER}
+                        - KAFKA_ADVERTISED_LISTENERS=${KAFKA_ADVERTISED_LISTENERS}
+                        - DOCKERIZE_VERSION=${DOCKERIZE_VERSION}
+                command: ["bash", "-c", "unset KAFKA_PORT; apt-get update && apt-get install -y wget; wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz; dockerize -wait tcp://zookeeper:2181 -timeout 300s -wait-retry-interval 30s /etc/confluent/docker/run"] 
+        producer:
+                image: "gcr.io/<PROJECT_ID>/producer:v1"
+                ports:
+                        - "5000:5000"
+                labels:
+                        kompose.service.type: LoadBalancer
+                command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python3 producer.py"
+        consumer:
+                image: "gcr.io/<PROJECT_ID>/consumer:v1"
+                ports:
+                        - "6000:6000"
+                command: sh -c "dockerize -wait tcp://kafka:9092 -timeout 300s -wait-retry-interval 30s python3 consumer.py"

@@ -1,0 +1,15 @@
+FROM ubuntu:18.04
+# Add dockerize tool -------------------
+RUN apt-get update && apt-get install -y wget
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+COPY ./producer.py /producer.py
+RUN apt-get install -y python3-pip python3-dev \
+  && ln -sf /usr/bin/python3 /usr/local/bin/python \
+  && pip3 install --upgrade pip
+RUN pip3 install kafka-python
+RUN pip3 install tweepy
+#CMD python3 producer.py
+EXPOSE 5000

@@ -88,10 +88,10 @@ def getreviews(url):
     return List    
 
 
-username = ""
+username = "scrumlords"
 password = ""
 
-client = MongoClient("mongodb+srv://"+username+":"+password+"@cluster0-kpzsd.gcp.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]
 tweetCol = db["movies_test"]    
 #f = open('imdb.csv', 'w',newline='')

@@ -15,6 +15,7 @@ import re
 
 #from halo import Halo
 def getImageurl(url):
+    imgurl= "None"
     r1 = http.request('GET', url)
     soup = BeautifulSoup(r1.data, 'lxml')
     for choice in soup.find_all('div', class_='poster'):  
@@ -24,6 +25,7 @@ def getImageurl(url):
        
     return imgurl  
 def getLanguage(url):
+    language= "None"
     r1 = http.request('GET', url)
     soup = BeautifulSoup(r1.data, 'lxml')
     for a in soup.find_all("a", href=re.compile('language')):
@@ -31,6 +33,7 @@ def getLanguage(url):
         #print(language)
     return language
 def getPlot(url):
+    plot= "None"
     r1 = http.request('GET', url)
     soup = BeautifulSoup(r1.data, 'lxml')
     for a in soup.find_all('div',class_='inline canwrap') :

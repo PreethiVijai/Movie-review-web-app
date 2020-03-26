@@ -54,6 +54,7 @@ def getWatch(title):
     title = title.replace(" ", "_")
     title = title.replace(".", "")
     title = title.replace(":", "")
+    title = title.replace("&", "and")
     title = title.replace("-", "")
     title = title.replace(",", "")
     title = title.replace("'", "")
@@ -77,12 +78,22 @@ def getWatch(title):
         #print(soup)
         choice=soup.find("ul", class_='affiliates__list')
         if(choice==None):
-            print("not found")            
+            title= title+ ("_2019")
+            url1="https://www.rottentomatoes.com/m/"+ str(title)
+            r1 = http.request('GET', url1)
+            print(url1)
+            soup = BeautifulSoup(r1.data, 'lxml')
+            choice=soup.find("ul", class_='affiliates__list')
+            if(choice==None):
+                print("not found")
+            else:
+                for ch1 in choice.find_all('a'):
+                    print(ch1.get('href'))
+                    watchList.append(ch1.get('href'))
         else:    
             for ch1 in choice.find_all('a'):
                 print(ch1.get('href'))
                 watchList.append(ch1.get('href'))
-        
         #link= a.href
         return watchList
 def getreviews(url):

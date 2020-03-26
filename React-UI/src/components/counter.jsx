@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./counter.css";
+import logo from "./cinephile1.png";
 class Counter extends Component {
   render() {
     let videoid = "vi2308751129";
@@ -7,7 +8,7 @@ class Counter extends Component {
     return (
       <div id="page">
         <div class="header">
-          <h1>CINEPHILE</h1>{" "}
+          <img alt="" src={logo} width="60" height="60" /> <h1>CINEPHILE</h1>{" "}
           <div class="searchbar">
             <input
               type="text"

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./counter.css";
 class Counter extends Component {
   render() {
+    let videoid = "vi2308751129";
+    let link = `https://www.imdb.com/videoembed/${videoid}`;
     return (
       <div id="page">
         <div class="header">
@@ -21,7 +23,16 @@ class Counter extends Component {
         <div id="all_details">
           <div id="moviereview">
             <div id="trailer" style={{ backgroundColor: "#cde" }}>
-              Trailer clip here
+              <iframe
+                src={link}
+                width="550"
+                height="260"
+                allowfullscreen="true"
+                mozallowfullscreen="true"
+                webkitallowfullscreen="true"
+                frameborder="no"
+                scrolling="no"
+              ></iframe>
             </div>
             <div id="tomatometer" style={{ backgroundColor: "#abc" }}>
               Tomatometer here

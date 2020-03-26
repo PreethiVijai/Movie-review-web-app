@@ -43,14 +43,23 @@ body {
 }
 #page #all_details #moviereview {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
   grid-gap: 10px;
 }
 #page #all_details #moviereview div {
   border: 1px solid #000000;
   padding: 100 px;
   margin: 0;
-  height: 150px;
+}
+#page #all_details #moviereview #trailer {
+  height: 300px;
+}
+#page #all_details #moviereview #trailer iframe {
+  border-radius: 25px;
+}
+#page #all_details #moviereview #tomatometer,
+#page #all_details #moviereview #cast {
+  max-height: 150px;
 }
 #page #all_details #twitterfeed #news {
   font-size: 35px;

@@ -32,6 +32,15 @@ def getLanguage(url):
         language= a.text
         #print(language)
     return language
+def getTrailer(url):
+    print("entered")
+    r1 = http.request('GET', url)
+    soup = BeautifulSoup(r1.data, 'lxml')
+    for choice in soup.find_all('div', class_='mediastrip_big'):
+        #print(choice.a.href)
+        trailer= choice.a.get("data-video")
+        print(trailer)
+    return trailer    
 def getPlot(url):
     plot= "None"
     r1 = http.request('GET', url)
@@ -138,6 +147,7 @@ while pages > 0:
         imageurl= getImageurl(urlp2)
         language= getLanguage(urlp2)
         plot= getPlot(urlp2)
+        trailer=getTrailer(urlp2)
         #print(imageurl)
         watchList= getWatch(name)
         imdburl1= imdburl.split("/")
@@ -191,6 +201,7 @@ while pages > 0:
         "language": language,
         "cast": cast,
         "imageurl": imageurl,
+        "trailer": trailer,
         "plot": plot,
         "rating": rating,
         "genreList": genreList,

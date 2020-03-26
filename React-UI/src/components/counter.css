@@ -2,17 +2,21 @@ body {
   background-color: #fbe0d7;
   margin: 0;
   font-family: "Georgia";
-  font-weight: thicker;
-  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 #page .header {
-  padding: 50px;
+  padding: 30px;
+  text-align: center;
+}
+body #page .header .logoheader text {
   text-align: center;
   color: hsl(283, 86%, 30%);
+  font-size: -webkit-xxx-large;
 }
-
+body #page .header .logoheader img {
+  margin-top: -20px;
+}
 ::-webkit-input-placeholder {
   font-size: 14px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -20,12 +24,13 @@ body {
 }
 #page .searchbar #myInput {
   box-sizing: border-box;
-  border-radius: 25px;
   opacity: 1px;
-  width: 300px;
+  width: 385px;
+  height: 32px;
 }
 #page .searchbar .gosearch {
   cursor: pointer;
+  max-height: 32px;
 }
 #page #all_details {
   display: grid;

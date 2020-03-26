@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./counter.css";
-import logo from "./cinephile1.png";
-
+import logo from "./cine.png";
+import search from "./searchicon.jpg";
 class Counter extends Component {
   render() {
     let videoid = "vi2308751129";
@@ -9,15 +9,28 @@ class Counter extends Component {
     return (
       <div id="page">
         <div class="header">
-          <img alt="" src={logo} width="60" height="60" /> <h1>CINEPHILE</h1>{" "}
+          <span class="logoheader">
+            <img
+              alt=""
+              src={logo}
+              width="50"
+              height="50"
+              backgroundColor="transparent"
+            />
+            <text>CINEPHILE</text>
+          </span>
           <div class="searchbar">
             <input
               type="text"
               id="myInput"
               onkeyup="myFunction()"
               placeholder=" Enter movie Name here"
+              onFocus={e => (e.target.placeholder = "")}
+              onBlur={e => (e.target.placeholder = " Enter movie Name here")}
             ></input>
-            <button class="gosearch">GO</button>
+            <button class="gosearch">
+              <img alt="" src={search} width="30" height="28" />
+            </button>
           </div>{" "}
           {/* search bar div ends here */}
         </div>

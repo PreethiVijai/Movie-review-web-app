@@ -49,7 +49,7 @@ def getPlot(url):
         plot= a.span.text
         #print(plot)
     return plot
-def getWatch(title):
+def getWatch(title,year):
     watchList=[]
     title = title.replace(" ", "_")
     title = title.replace(".", "")
@@ -78,7 +78,7 @@ def getWatch(title):
         #print(soup)
         choice=soup.find("ul", class_='affiliates__list')
         if(choice==None):
-            title= title+ ("_2019")
+            title= title+ ("_")+year
             url1="https://www.rottentomatoes.com/m/"+ str(title)
             r1 = http.request('GET', url1)
             print(url1)
@@ -112,7 +112,7 @@ def getreviews(url):
 
 
 username = "scrumlords"
-password = ""
+password = "Bda2020$!"
 
 client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]
@@ -122,7 +122,7 @@ tweetCol = db["movies_test"]
 #csvfile.writerow(["Name", "Year of release","Runtime","Language","Cast_Crew","ImageURL","Plot", "Rating", "Genre", "Reviews"])
 #pages = int(raw_input("enter number of pages to scrap:"))
 pages=1
-url = 'https://www.imdb.com/search/title/?title_type=feature&release_date=2019-01-01,2020-01-01&genres=action'
+url = 'https://www.imdb.com/search/title/?title_type=feature&release_date=2019-01-01,2020-03-20'
 
 http = urllib3.PoolManager(
         cert_reqs='CERT_REQUIRED',
@@ -160,7 +160,7 @@ while pages > 0:
         plot= getPlot(urlp2)
         trailer=getTrailer(urlp2)
         #print(imageurl)
-        watchList= getWatch(name)
+        
         imdburl1= imdburl.split("/")
         print(imdburl1[2])
         movieId=imdburl1[2]
@@ -172,19 +172,29 @@ while pages > 0:
         if(x<3):
             reviewsList=List
         else:
-            reviewsList.append(List[0])
             reviewsList.append(List[1])
             reviewsList.append(List[2])
+            reviewsList.append(List[3])
+            reviewsList.append(List[4])
+            reviewsList.append(List[5])
+            reviewsList.append(List[6])
        # print(imdburl)                                                   # get the imdb url of the movie
         #if not imdburl.startswith('http://www.imdb.com'):                                               # check if link is valid or not
             #imdburl = "http://www.imdb.com" + imdburl
         year = choice.find('span', class_='lister-item-year').text.encode('utf-8')  
         year=year.decode('utf-8')                    # get the year of release of the movie
+        id1=year.find("2")
+        year=year[id1:]
+        year=year.replace("(","")
+        year=year.replace(")","") 
+        print(year)      
+        watchList= getWatch(name,year)
         try:
             rating = choice.find('div', class_='ratings-imdb-rating').get('data-value').encode('utf-8') # get the ratings of the movie
+            rating= rating.decode('utf-8')
         except AttributeError:                                                                          # if ratings not available then store "NA"
             rating = "NA"
-        rating= rating.decode('utf-8')    
+            
         genre = choice.find('span', class_='genre').text.encode('utf-8')  
         
         genre= genre.decode('utf-8')
@@ -207,7 +217,7 @@ while pages > 0:
         imdbDocument = {
         "movieId": movieId,    
         "name": name,
-        "year": 2019,
+        "year": year,
         "runtime": runtime,
         "language": language,
         "cast": cast,

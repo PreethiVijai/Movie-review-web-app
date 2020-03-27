@@ -16,7 +16,7 @@ import os
 username = ""
 password = ""
 
-client = MongoClient("mongodb+srv://"+username+":"+password+"@cluster0-kpzsd.gcp.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["realTime"]
 tweetCol = db["tweets_test"]
 

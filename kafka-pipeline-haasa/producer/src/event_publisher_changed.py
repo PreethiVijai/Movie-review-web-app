@@ -12,50 +12,39 @@ import os
 import json
 #import csv
 
-consumer_key = 'cbOz7WdSq3pscOHcrCPeY4YyV'
-consumer_secret = 'PhGK56KBym80X0gCBP8OuHU3BZWFrmWiAKsjJ5PncMEIBBnP0m'
-access_token = '1046554892582641664-UIUnXcIgtqMgA9hZdhcURDMelfsmTN'
-access_token_secret = 'nxZM3dYEVtp62IUslanUzeRCnBwNFU2NFv3Q0Nf8DoUr4'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 producer = Producer({'bootstrap.servers': 'kafka:9092'})
-msg = json.dumps(msg)
-print(msg)
-producer.produce("example_topic",msg.encode('utf-8'))
-print("done")
 
-for tweet in tweepy.Cursor(api.search,q="#JumanjiTheNextLevel #moviereview",count=10,\
+for tweet in tweepy.Cursor(api.search,q="#SpenserConfidential #moviereview",count=10,\
                            lang="en",\
                            since_id= "2020-02-20",\
-                           until="2020-03-26").items(100):
-    print(tweet.created_at, tweet.text)
-    tweet = json.loads(data)
+                           until="2020-03-26").items(10):
+    msg = {'id': tweet.id_str, 'tweet': tweet.text, 'tweet_coordinates': None, 'tweet_place': None, 'user_place': None}
 
-        msg = {'id': tweet['id_str'], 'tweet': tweet['text'], 'tweet_coordinates': None, 'tweet_place': None, 'user_place': None}
+    if tweet.coordinates:
 
-        if tweet['coordinates']:
-
-            msg['tweet_coordinates'] = tweet['coordinates']
-
-        elif tweet['place']:
+        msg['tweet_coordinates'] = tweet.coordinates
+    elif tweet.place:
 
             # tweet['place']['full_name'].split(',')
 
-            msg['tweet_place'] = tweet['place']['full_name']
+        msg['tweet_place'] = tweet.place.full_name
 
 
-        elif tweet['user']['location']:
+    elif tweet.user.location:
 
             # tweet['user']['location'].split(',')
 
-            msg['user_place'] = tweet['user']['location']
+        msg['user_place'] = tweet.user.location
 
-        msg = json.dumps(msg)
-        print(msg)
-        producer.produce("example_topic",msg.encode('utf-8'))
-
-        print("done")
-        return True
-    csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
+    msg = json.dumps(msg)
+    print(msg)
+    producer.produce("example_topic",msg.encode('utf-8'))
+    print("done")

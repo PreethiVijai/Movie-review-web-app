@@ -5,6 +5,7 @@ Created on Thu Mar 26 18:32:23 2020
 @author: Srihaasa
 """
 from confluent_kafka import Producer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import tweepy
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -12,7 +13,15 @@ from pathlib import Path
 import os
 import json
 #import csv
-
+def sentiment_analyzer_scores(text):
+    score = analyser.polarity_scores(text)
+    lb = score['compound']
+    if lb >= 0.05:
+        return 1
+    elif (lb > -0.05) and (lb < 0.05):
+        return 0
+    else:
+        return -1
 username = ""
 password = ""
 
@@ -23,7 +32,7 @@ consumer_key = ''
 consumer_secret = ''
 access_token = ''
 access_token_secret = ''
-
+analyser = SentimentIntensityAnalyzer()
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth,wait_on_rate_limit=True,
@@ -41,8 +50,10 @@ for x in tweetCol.find({},{ "_id": 0 }):
     for tweet in tweepy.Cursor(api.search, q=tname+" "+"#moviereview", count=10,\
                                lang="en",\
                                since_id="2020-02-20",\
-                               until="2020-03-27").items(10):
-        msg = {'id': tweet.id_str,'movieId':movieId, 'movieName':tname,'tweet': tweet.text, 'tweet_coordinates': None,'tweet_place': None, 'user_place': None}
+                               until="2020-03-28").items(10):
+        sentimentScore=0                       
+        sentimentScore= sentiment_analyzer_scores(tweet.text)                      
+        msg = {'id': tweet.id_str,'movieId':movieId, 'movieName':tname,'sentimentScore':sentimentScore, 'tweet': tweet.text, 'tweet_coordinates': None,'tweet_place': None, 'user_place': None}
 
         if tweet.coordinates:
 

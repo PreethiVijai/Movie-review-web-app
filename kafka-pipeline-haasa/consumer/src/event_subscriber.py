@@ -18,7 +18,7 @@ password = ""
 
 client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["realTime"]
-tweetCol = db["tweets_test"]
+tweetCol = db["tweets_test_1"]
 
 consumer = Consumer({
     'bootstrap.servers': 'kafka:9092',

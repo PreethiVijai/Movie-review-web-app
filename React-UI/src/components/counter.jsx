@@ -2,10 +2,88 @@ import React, { Component } from "react";
 import "./counter.css";
 import logo from "./cine.png";
 import search from "./searchicon.jpg";
+import Autosuggest from "react-autosuggest";
+
+const languages = [
+  {
+    name: "C",
+    year: 1972
+  },
+  {
+    name: "Elm",
+    year: 2012
+  }
+];
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0
+    ? []
+    : languages.filter(
+        lang => lang.name.toLowerCase().slice(0, inputLength) === inputValue
+      );
+};
+const getSuggestionValue = suggestion => suggestion.name;
+const renderSuggestion = suggestion => (
+  <div>
+    <span>{suggestion.name}</span>
+  </div>
+);
+
 class Counter extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: "",
+      suggestions: []
+    };
+  }
+
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
   render() {
     let videoid = "vi2308751129";
     let link = `https://www.imdb.com/videoembed/${videoid}`;
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: " Enter movie name",
+      value,
+      onChange: this.onChange
+    };
+    const renderInputComponent = inputProps => (
+      <div className="inputContainer">
+        <img
+          className="icon"
+          src="https://img.icons8.com/ios-filled/50/000000/search.png"
+          width="20px"
+          height="20px"
+        />
+        <input {...inputProps} />
+      </div>
+    );
+
+    function myFunction() {
+      console.log("Hello!");
+    }
+    function sayHello() {
+      alert("Hello 123!");
+    }
     return (
       <div id="page">
         <div class="header">
@@ -19,20 +97,15 @@ class Counter extends Component {
             />
             <text>CINEPHILE</text>
           </span>
-          <div class="searchbar">
-            <input
-              type="text"
-              id="myInput"
-              onkeyup="myFunction()"
-              placeholder=" Enter movie Name here"
-              onFocus={e => (e.target.placeholder = "")}
-              onBlur={e => (e.target.placeholder = " Enter movie Name here")}
-            ></input>
-            <button class="gosearch">
-              <img alt="" src={search} width="30" height="28" />
-            </button>
-          </div>{" "}
-          {/* search bar div ends here */}
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+            renderInputComponent={renderInputComponent}
+          />
         </div>
         {/* header div ends here */}
         <div id="all_details">

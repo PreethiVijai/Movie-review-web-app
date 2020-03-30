@@ -32,6 +32,9 @@ body #page .header .logoheader img {
   cursor: pointer;
   max-height: 32px;
 }
+#page .header input {
+  width: 400px;
+}
 #page #all_details {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

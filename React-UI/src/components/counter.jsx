@@ -6,17 +6,11 @@ import Autosuggest from "react-autosuggest";
 import axios from "axios";
 import { debounce } from "throttle-debounce";
 
-const renderSuggestion = suggestion => (
-  <div>
-    <span>{suggestion.name}</span>
-  </div>
-);
-
 class Counter extends Component {
   state = {
     value: "",
     suggestions: [],
-    cacheAPISugesstions: [],
+    cacheAPISugestions: [],
     isOpen: false
   };
 
@@ -30,14 +24,7 @@ class Counter extends Component {
   }
 
   renderSuggestion = suggestion => {
-    console.log(suggestion);
-    return (
-      // <ul className="ui-autocomplete">
-
-      <div>
-        <span>{suggestion.name}</span>
-      </div>
-    );
+    return <span>{suggestion.name}</span>;
   };
 
   onChange = (event, { newValue }) => {
@@ -47,13 +34,13 @@ class Counter extends Component {
   };
   componentDidMount() {
     axios.get(this.SUGGEST_URL, {}).then(res => {
-      this.setState({ cacheAPISugesstions: res.data });
+      this.setState({ cacheAPISugestions: res.data });
     });
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: this.getSuggestions(this.state.cacheAPISugesstions, value)
+      suggestions: this.getSuggestions(this.state.cacheAPISugestions, value)
     });
   };
 
@@ -62,30 +49,26 @@ class Counter extends Component {
       suggestions: []
     });
   };
-  onSuggestionSelected = (
-    event,
-    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
-  ) => {
-    var filterRes = this.state.data;
+  onSuggestionSelected = (event, { suggestionValue }) => {
+    var filterRes = this.state.suggestions;
     filterRes = filterRes.filter(item => item.name == suggestionValue);
-
     if (filterRes != 0) {
       this.setState({
         filterResults: filterRes
       });
     } else {
       this.setState({
-        filterResults: this.state.data
+        filterResults: this.state.suggestions
       });
     }
   };
-  getSuggestions = (allPosts, searchValue) => {
+  getSuggestions = (moviesNames, searchValue) => {
     const inputValue = searchValue.trim().toLowerCase();
     const inputLength = inputValue.length;
     if (inputLength === 0) return [];
     else {
       var i;
-      return allPosts.filter(
+      return moviesNames.filter(
         s =>
           s.name.toLowerCase().includes(inputValue) ||
           s.year.toLowerCase().includes(inputValue)
@@ -99,7 +82,7 @@ class Counter extends Component {
     const suggestions = this.state.suggestions;
 
     const inputProps = {
-      placeholder: " Enter movie name",
+      placeholder: " Enter movie name or year",
       value,
       onChange: this.onChange
     };

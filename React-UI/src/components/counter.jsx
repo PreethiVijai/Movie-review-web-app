@@ -2,10 +2,154 @@ import React, { Component } from "react";
 import "./counter.css";
 import logo from "./cine.png";
 import search from "./searchicon.jpg";
+import Autosuggest from "react-autosuggest";
+import axios from "axios";
+import { debounce } from "throttle-debounce";
+
+const data = [
+  {
+    id: 100,
+    name: "CSCI-4448",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+
+  {
+    id: 200,
+    name: "name2",
+    interested_count: 2,
+    interested_peers: ["peer4", "peer5", "peer6"]
+  },
+  {
+    id: 101,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 102,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 103,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 104,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  }
+];
+const renderSuggestion = suggestion => (
+  <div>
+    <span>{suggestion.name}</span>
+  </div>
+);
+
 class Counter extends Component {
+  state = {
+    value: "",
+    suggestions: [],
+    cacheAPISugesstions: [],
+    isOpen: false
+  };
+
+  SUGGEST_URL = "http://localhost:8080/suggest";
+
+  componentWillMount() {
+    this.onSuggestionsFetchRequested = debounce(
+      500,
+      this.onSuggestionsFetchRequested
+    );
+  }
+
+  renderSuggestion = suggestion => {
+    console.log(suggestion);
+    return (
+      // <ul className="ui-autocomplete">
+
+      <div>
+        <span>{suggestion.name}</span>
+      </div>
+    );
+  };
+
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
+  componentDidMount() {
+    axios.get(this.SUGGEST_URL, {}).then(res => {
+      this.setState({ cacheAPISugesstions: res.data });
+    });
+  }
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(this.state.cacheAPISugesstions, value)
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+  onSuggestionSelected = (
+    event,
+    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
+  ) => {
+    var filterRes = this.state.data;
+    filterRes = filterRes.filter(item => item.name == suggestionValue);
+
+    if (filterRes != 0) {
+      this.setState({
+        filterResults: filterRes
+      });
+    } else {
+      this.setState({
+        filterResults: this.state.data
+      });
+    }
+  };
+  getSuggestions = (allPosts, searchValue) => {
+    const inputValue = searchValue.trim().toLowerCase();
+    const inputLength = inputValue.length;
+    if (inputLength === 0) return [];
+    else {
+      var i;
+      return allPosts.filter(s => s.name.toLowerCase().includes(inputValue));
+    }
+  };
   render() {
     let videoid = "vi2308751129";
     let link = `https://www.imdb.com/videoembed/${videoid}`;
+    const value = this.state.value;
+    const suggestions = this.state.suggestions;
+
+    const inputProps = {
+      placeholder: " Enter movie name",
+      value,
+      onChange: this.onChange
+    };
+    const renderInputComponent = inputProps => (
+      <div className="inputContainer">
+        <img
+          className="icon"
+          src="https://img.icons8.com/ios-filled/50/000000/search.png"
+          width="20px"
+          height="20px"
+        />
+        <input {...inputProps} />
+      </div>
+    );
+
     return (
       <div id="page">
         <div class="header">
@@ -19,20 +163,17 @@ class Counter extends Component {
             />
             <text>CINEPHILE</text>
           </span>
-          <div class="searchbar">
-            <input
-              type="text"
-              id="myInput"
-              onkeyup="myFunction()"
-              placeholder=" Enter movie Name here"
-              onFocus={e => (e.target.placeholder = "")}
-              onBlur={e => (e.target.placeholder = " Enter movie Name here")}
-            ></input>
-            <button class="gosearch">
-              <img alt="" src={search} width="30" height="28" />
-            </button>
-          </div>{" "}
-          {/* search bar div ends here */}
+
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={suggestion => suggestion.name}
+            renderSuggestion={this.renderSuggestion}
+            onSuggestionSelected={this.onSuggestionSelected}
+            inputProps={inputProps}
+            renderInputComponent={renderInputComponent}
+          />
         </div>
         {/* header div ends here */}
         <div id="all_details">

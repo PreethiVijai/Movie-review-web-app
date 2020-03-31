@@ -6,45 +6,6 @@ import Autosuggest from "react-autosuggest";
 import axios from "axios";
 import { debounce } from "throttle-debounce";
 
-const data = [
-  {
-    id: 100,
-    name: "CSCI-4448",
-    interested_count: 1,
-    interested_peers: ["peer1", "peer2", "peer3"]
-  },
-
-  {
-    id: 200,
-    name: "name2",
-    interested_count: 2,
-    interested_peers: ["peer4", "peer5", "peer6"]
-  },
-  {
-    id: 101,
-    name: "name1",
-    interested_count: 1,
-    interested_peers: ["peer1", "peer2", "peer3"]
-  },
-  {
-    id: 102,
-    name: "name1",
-    interested_count: 1,
-    interested_peers: ["peer1", "peer2", "peer3"]
-  },
-  {
-    id: 103,
-    name: "name1",
-    interested_count: 1,
-    interested_peers: ["peer1", "peer2", "peer3"]
-  },
-  {
-    id: 104,
-    name: "name1",
-    interested_count: 1,
-    interested_peers: ["peer1", "peer2", "peer3"]
-  }
-];
 const renderSuggestion = suggestion => (
   <div>
     <span>{suggestion.name}</span>
@@ -124,7 +85,11 @@ class Counter extends Component {
     if (inputLength === 0) return [];
     else {
       var i;
-      return allPosts.filter(s => s.name.toLowerCase().includes(inputValue));
+      return allPosts.filter(
+        s =>
+          s.name.toLowerCase().includes(inputValue) ||
+          s.year.toLowerCase().includes(inputValue)
+      );
     }
   };
   render() {

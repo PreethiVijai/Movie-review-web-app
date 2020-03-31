@@ -3,28 +3,48 @@ import "./counter.css";
 import logo from "./cine.png";
 import search from "./searchicon.jpg";
 import Autosuggest from "react-autosuggest";
+import axios from "axios";
+import { debounce } from "throttle-debounce";
 
-const languages = [
+const data = [
   {
-    name: "C",
-    year: 1972
+    id: 100,
+    name: "CSCI-4448",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+
+  {
+    id: 200,
+    name: "name2",
+    interested_count: 2,
+    interested_peers: ["peer4", "peer5", "peer6"]
   },
   {
-    name: "Elm",
-    year: 2012
+    id: 101,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 102,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 103,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
+  },
+  {
+    id: 104,
+    name: "name1",
+    interested_count: 1,
+    interested_peers: ["peer1", "peer2", "peer3"]
   }
 ];
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0
-    ? []
-    : languages.filter(
-        lang => lang.name.toLowerCase().slice(0, inputLength) === inputValue
-      );
-};
-const getSuggestionValue = suggestion => suggestion.name;
 const renderSuggestion = suggestion => (
   <div>
     <span>{suggestion.name}</span>
@@ -32,23 +52,47 @@ const renderSuggestion = suggestion => (
 );
 
 class Counter extends Component {
-  constructor() {
-    super();
-    this.state = {
-      value: "",
-      suggestions: []
-    };
+  state = {
+    value: "",
+    suggestions: [],
+    cacheAPISugesstions: [],
+    isOpen: false
+  };
+
+  SUGGEST_URL = "http://localhost:8080/suggest";
+
+  componentWillMount() {
+    this.onSuggestionsFetchRequested = debounce(
+      500,
+      this.onSuggestionsFetchRequested
+    );
   }
+
+  renderSuggestion = suggestion => {
+    console.log(suggestion);
+    return (
+      // <ul className="ui-autocomplete">
+
+      <div>
+        <span>{suggestion.name}</span>
+      </div>
+    );
+  };
 
   onChange = (event, { newValue }) => {
     this.setState({
       value: newValue
     });
   };
+  componentDidMount() {
+    axios.get(this.SUGGEST_URL, {}).then(res => {
+      this.setState({ cacheAPISugesstions: res.data });
+    });
+  }
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: this.getSuggestions(this.state.cacheAPISugesstions, value)
     });
   };
 
@@ -57,10 +101,38 @@ class Counter extends Component {
       suggestions: []
     });
   };
+  onSuggestionSelected = (
+    event,
+    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
+  ) => {
+    var filterRes = this.state.data;
+    filterRes = filterRes.filter(item => item.name == suggestionValue);
+
+    if (filterRes != 0) {
+      this.setState({
+        filterResults: filterRes
+      });
+    } else {
+      this.setState({
+        filterResults: this.state.data
+      });
+    }
+  };
+  getSuggestions = (allPosts, searchValue) => {
+    const inputValue = searchValue.trim().toLowerCase();
+    const inputLength = inputValue.length;
+    if (inputLength === 0) return [];
+    else {
+      var i;
+      return allPosts.filter(s => s.name.toLowerCase().includes(inputValue));
+    }
+  };
   render() {
     let videoid = "vi2308751129";
     let link = `https://www.imdb.com/videoembed/${videoid}`;
-    const { value, suggestions } = this.state;
+    const value = this.state.value;
+    const suggestions = this.state.suggestions;
+
     const inputProps = {
       placeholder: " Enter movie name",
       value,
@@ -78,12 +150,6 @@ class Counter extends Component {
       </div>
     );
 
-    function myFunction() {
-      console.log("Hello!");
-    }
-    function sayHello() {
-      alert("Hello 123!");
-    }
     return (
       <div id="page">
         <div class="header">
@@ -97,12 +163,14 @@ class Counter extends Component {
             />
             <text>CINEPHILE</text>
           </span>
+
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
+            getSuggestionValue={suggestion => suggestion.name}
+            renderSuggestion={this.renderSuggestion}
+            onSuggestionSelected={this.onSuggestionSelected}
             inputProps={inputProps}
             renderInputComponent={renderInputComponent}
           />

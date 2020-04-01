@@ -1,0 +1,77 @@
+﻿    1  cd E:/2-Spring-2020/BDA/Project/kafka_2.12-2.4.1
+    2  bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sample
+    3  bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sample
+    4  cd E:/2-Spring-2020/BDA/Project/kafka_2.12-2.4.1
+    5  bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic sample
+    6  bin/kafka-topics.sh --list --zookeeper localhost:2181
+    7  bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic sample
+    8  pip install kafka-python
+    9  npm i -g create-react-app@1.5.2
+   10  create-react-app bda
+   11  create-react-app bda
+   12  npm config set prefix /usr/local
+   13  sudo npm install -g create-react-app
+   14  pwd
+   15  su -
+   16  su-
+   17  pwd
+   18  cd ..
+   19  cd ..
+   20  cd E:\2-Spring-2020\BDA\Project\kafka_2.12-2.4.1
+   21  cd E:/2-Spring-2020/BDA/Project/kafka_2.12-2.4.1
+   22  bin/kafka-server-start.sh config/server.properties
+   23  cd C:\Users\shrut\PycharmProjects\trsl\kafka_2.12-2.4.1
+   24  ls
+   25  pwd
+   26  cd PycharmProjects/trsl/kafka_2.12-2.4.1
+   27  bin/zookeeper-server-start.sh config/zookeeper.properties
+   28  cd E:\2 Spring 2020\Big Data Architecture\Project
+   29  cd ..
+   30  cd ..
+   31  cd ..
+   32  cd E:/2 Spring 2020/Big Data Architecture/Project
+   33  cd E:/2-Spring-2020/BDA/Project
+   34  bin/zookeeper-server-start.sh config/zookeeper.properties
+   35  cd kafka_2.12-2.4.1/
+   36  bin/zookeeper-server-start.sh config/zookeeper.properties
+   37  npm install -g create-react-app
+   38  git checkout -b #171889247-shruthi
+   39  cd C:\Users\shrut\Documents\GitHub
+   40  cd C:/Users/shrut/Documents/GitHub
+   41  git checkout -b #171889247-shruthi
+   42  git checkout -b #171889247-shruthi https://github.com/CUBigDataClass/ScrumLords
+   43  git
+   44  git branch -f https://github.com/CUBigDataClass/ScrumLords
+   45  git branch
+   46  git clone https://github.com/CUBigDataClass/ScrumLords
+   47  git clone https://github.com/CUBigDataClass/ScrumLords
+   48  git checkout -b #171889247-shruthi
+   49  cd ScrumLords/
+   50  git checkout -b #171889247-shruthi
+   51  git checkout -b#171889247-shruthi
+   52  cd ..
+   53  cd ScrumLords/
+   54  git branch -d#171889247-shruthi
+   55  git branch -d #171889247-shruthi
+   56  git branch -d#171889247-shruthi
+   57  git branch -d#171889247-shruthi
+   58  git branch -D#171889247-shruthi
+   59  git branch -D #171889247-shruthi
+   60  exit
+   61  pwd
+   62  cd Documents/GitHub/ScrumLords/
+   63  git checkout -b171889247-shruthi
+   64  git commit
+   65  git checkout -b 171889247-shruthi
+   66  git checkout
+   67  git push counter.css
+   68  git push counter.css
+   69  git commit
+   70  git commit -m
+   71  git commit -m "Test commit"
+   72  git push origin 171889247-shruthi
+   73  git add .
+   74  git commit -m "UI changes"
+   75  git push origin 171889247-shruthi
+   76  history
+   77  history > cmd.txt

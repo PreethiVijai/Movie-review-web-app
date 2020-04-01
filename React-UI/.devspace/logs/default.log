@@ -1,0 +1,25 @@
+{"level":"info","msg":"Using kube context '\u001b[1;37mgke_golden-hook-269722_us-west1-b_mykube\u001b[0m'","time":"2020-03-31T12:21:35-06:00"}
+{"level":"info","msg":"Using namespace '\u001b[1;37mReact-UI\u001b[0m'","time":"2020-03-31T12:21:35-06:00"}
+{"level":"info","msg":"Created namespace: React-UI","time":"2020-03-31T12:21:36-06:00"}
+{"level":"fatal","msg":"Unable to create namespace: Namespace \"React-UI\" is invalid: metadata.name: Invalid value: \"React-UI\": a DNS-1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')","time":"2020-03-31T12:21:36-06:00"}
+{"level":"info","msg":"Using kube context '\u001b[1;37mgke_golden-hook-269722_us-west1-b_mykube\u001b[0m'","time":"2020-03-31T12:22:11-06:00"}
+{"level":"info","msg":"Using namespace '\u001b[1;37mReact-ui\u001b[0m'","time":"2020-03-31T12:22:11-06:00"}
+{"level":"info","msg":"Created namespace: React-ui","time":"2020-03-31T12:22:11-06:00"}
+{"level":"fatal","msg":"Unable to create namespace: Namespace \"React-ui\" is invalid: metadata.name: Invalid value: \"React-ui\": a DNS-1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')","time":"2020-03-31T12:22:11-06:00"}
+{"level":"info","msg":"Using kube context '\u001b[1;37mgke_golden-hook-269722_us-west1-b_mykube\u001b[0m'","time":"2020-03-31T12:22:32-06:00"}
+{"level":"info","msg":"Using namespace '\u001b[1;37mreact-ui\u001b[0m'","time":"2020-03-31T12:22:32-06:00"}
+{"level":"info","msg":"Created namespace: react-ui","time":"2020-03-31T12:22:32-06:00"}
+{"level":"info","msg":"Created image pull secret react-ui/devspace-auth-gcr-io","time":"2020-03-31T12:22:33-06:00"}
+{"level":"info","msg":"Building image 'gcr.io/golden-hook-269722/myuser/reactui:ECMJu2Q' with engine 'docker'","time":"2020-03-31T12:22:34-06:00"}
+{"level":"info","msg":"Authentication successful (gcr.io)","time":"2020-03-31T12:22:35-06:00"}
+{"level":"info","msg":"Image pushed to registry (gcr.io)","time":"2020-03-31T12:23:34-06:00"}
+{"level":"info","msg":"Done processing image 'gcr.io/golden-hook-269722/myuser/reactui'","time":"2020-03-31T12:23:34-06:00"}
+{"level":"info","msg":"Deployed helm chart (Release revision: 0)","time":"2020-03-31T12:23:36-06:00"}
+{"level":"info","msg":"Successfully deployed react-ui with helm","time":"2020-03-31T12:23:36-06:00"}
+{"level":"info","msg":"Successfully deployed!","time":"2020-03-31T12:23:36-06:00"}
+{"level":"info","msg":"\r         \nRun: \n- `\u001b[1;37mdevspace open\u001b[0m` to create an ingress for the app and open it in the browser \n- `\u001b[1;37mdevspace enter\u001b[0m` to open a shell into the container \n- `\u001b[1;37mdevspace logs\u001b[0m` to show the container logs\n- `\u001b[1;37mdevspace analyze\u001b[0m` to analyze the space for potential issues\n","time":"2020-03-31T12:23:36-06:00"}
+{"level":"info","msg":"Using kube context '\u001b[1;37mgke_golden-hook-269722_us-west1-b_mykube\u001b[0m'","time":"2020-03-31T12:23:50-06:00"}
+{"level":"info","msg":"Using namespace '\u001b[1;37mreact-ui\u001b[0m'","time":"2020-03-31T12:23:50-06:00"}
+{"level":"info","msg":"Port forwarding started on 3001:3000","time":"2020-03-31T12:24:08-06:00"}
+{"level":"info","msg":"Successfully opened http://localhost:3001","time":"2020-03-31T12:24:10-06:00"}
+{"level":"info","msg":"Press ENTER to terminate port-forwarding process","time":"2020-03-31T12:24:10-06:00"}

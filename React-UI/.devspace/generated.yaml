@@ -1,0 +1,15 @@
+profiles:
+  "":
+    deployments:
+      react-ui:
+        deploymentConfigHash: a292ad19b77d53bc4e8303b27616b7b71f07ad6f84613aedbb2c2483c1095c2c
+    images:
+      default:
+        imageConfigHash: 055ecc1e27f931a83bfeaa9f47c6f1d31611bf277a80d67980d0b64006537dd2
+        dockerfileHash: d1425138d2b12fa8b4a5b2be268f5044379964363ae410b20028d31180c0eb77
+        contextHash: 9a6b237ff31c8214a00850b2b62c9fd67eedcc98f4fd34fbf8e9532908c39f82
+        imageName: gcr.io/golden-hook-269722/myuser/reactui
+        tag: ECMJu2Q
+    lastContext:
+      namespace: react-ui
+      context: gke_golden-hook-269722_us-west1-b_mykube

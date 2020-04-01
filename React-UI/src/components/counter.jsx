@@ -80,7 +80,11 @@ class Counter extends Component {
     let link = `https://www.imdb.com/videoembed/${videoid}`;
     const value = this.state.value;
     const suggestions = this.state.suggestions;
-
+    if (this.state.filterResults != null) {
+      let videoid = this.state.filterResults[0].trailer;
+      let link = `https://www.imdb.com/videoembed/${videoid}`;
+      document.getElementById("iframeid").src = link;
+    }
     const inputProps = {
       placeholder: " Enter movie name or year",
       value,
@@ -128,6 +132,7 @@ class Counter extends Component {
           <div id="moviereview">
             <div id="trailer" style={{ backgroundColor: "#cde" }}>
               <iframe
+                id="iframeid"
                 src={link}
                 width="550"
                 height="260"

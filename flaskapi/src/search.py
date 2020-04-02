@@ -1,13 +1,13 @@
-from flask import Flask
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
-import sys
-from bson.json_util import dumps
-from datetime import datetime
+#from bson.json_util import dumps
 from elasticsearch import Elasticsearch
-from flask import request
 import json
-import datetime
+from flask import Flask, request, Response
+import jsonpickle
+import io
+import hashlib 
+import sys
 
 cache = Cache(config={
     "DEBUG": True,  # some Flask specific configs
@@ -31,7 +31,7 @@ def status():
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 @cache.cached(timeout=50)
 def suggest():
-    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
     if not es.ping():
         raise ValueError("Connection failed")
 
@@ -41,7 +41,7 @@ def suggest():
     for hit in res['hits']['hits']:
         k.append(hit["_source"])
 
-    return dumps(k)
+    return json.dumps(k)
 
 
 if __name__ == '__main__':

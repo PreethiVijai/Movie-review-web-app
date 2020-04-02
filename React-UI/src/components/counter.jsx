@@ -14,7 +14,7 @@ class Counter extends Component {
     isOpen: false
   };
 
-  SUGGEST_URL = "http://localhost:8080/suggest";
+  SUGGEST_URL = "http://35.197.72.253:8080/suggest";
 
   componentWillMount() {
     this.onSuggestionsFetchRequested = debounce(

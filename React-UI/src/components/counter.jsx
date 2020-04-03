@@ -5,17 +5,23 @@ import netflix_icon from "./netflix.png";
 import itunes_icon from "./itunes.png";
 import hulu_icon from "./hulu-icon.png";
 import vudu_icon from "./vudu.png";
-import search from "./searchicon.jpg";
 import Autosuggest from "react-autosuggest";
 import axios from "axios";
 import { debounce } from "throttle-debounce";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { easeQuadInOut } from "d3-ease";
+import "react-circular-progressbar/dist/styles.css";
+
+// Animation
+import AnimatedProgressProvider from "../AnimatedProgressProvider";
 
 class Counter extends Component {
   state = {
     value: "",
     suggestions: [],
     cacheAPISugestions: [],
-    isOpen: false
+    isOpen: false,
+    valueEnd: "0"
   };
 
   SUGGEST_URL = "http://34.82.210.3:8080/suggest";
@@ -79,10 +85,16 @@ class Counter extends Component {
       );
     }
   };
+
   render() {
     let videoid = "vi2308751129";
     let link = `https://www.imdb.com/videoembed/${videoid}`;
     let plotval = "";
+    let movie_image = "";
+    let rating = "0";
+    let language = "English";
+    let year = "2020";
+    let runtime = "1880";
     /* Initialize all hrefs */
     let fandango_href = "http://www.fandangonow.com";
     let netflix_href = "http://www.netflix.com";
@@ -100,12 +112,31 @@ class Counter extends Component {
     const suggestions = this.state.suggestions;
     if (this.state.filterResults != null) {
       var results = this.state.filterResults[0];
-      let videoid = results.trailer;
-      let link = `https://www.imdb.com/videoembed/${videoid}`;
+      videoid = results.trailer;
+      link = `https://www.imdb.com/videoembed/${videoid}`;
       document.getElementById("iframeid").src = link;
 
-      let plotval = results.plot;
+      plotval = results.plot;
       document.getElementById("plot_Val").textContent = plotval;
+
+      movie_image = results.imageurl;
+      document.getElementById("mv_img").src = movie_image;
+
+      console.log(results);
+
+      rating = results.rating;
+      this.state.valueEnd = rating;
+
+      language = results.language;
+
+      document.getElementById("lang_span").textContent = language;
+
+      year = results.year;
+      document.getElementById("year_span").textContent = year;
+
+      runtime = results.runtime;
+      document.getElementById("runtime_span").textContent = runtime;
+
       if (results.watchList != null) {
         for (var i in results.watchList) {
           var href = results.watchList[i];
@@ -135,7 +166,6 @@ class Counter extends Component {
           document.getElementById(watchlink).href = "#";
           document.getElementById(watchlink).title =
             "This movie is not available on netflix";
-          console.log(document.getElementById(idName).style);
           document.getElementById(idName).style.opacity = "0.3";
           document.getElementById(idName).style.cursor = "default";
         }
@@ -202,17 +232,38 @@ class Counter extends Component {
         {/* header div ends here */}
         <div id="all_details">
           <div id="row1">
-            <iframe
-              id="iframeid"
-              src={link}
-              width="570"
-              height="280"
-              allowfullscreen="true"
-              mozallowfullscreen="true"
-              webkitallowfullscreen="true"
-              frameborder="no"
-              scrolling="no"
-            ></iframe>
+            <div id="row1_part1">
+              <div id="movie_image">
+                <img
+                  id="mv_img"
+                  src="https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg"
+                  width="250px"
+                  height="300px"
+                />
+              </div>
+              <div id="pb">
+                <AnimatedProgressProvider
+                  valueStart={0}
+                  valueEnd={this.state.valueEnd}
+                  duration={1.4}
+                  easingFunction={easeQuadInOut}
+                >
+                  {value => {
+                    value = value * 10;
+                    const roundedValue = Math.round(value);
+                    return (
+                      <CircularProgressbar
+                        value={value}
+                        text={`${roundedValue / 10}%`}
+                        /* This is important to include, because if you're fully managing the
+        animation yourself, you'll want to disable the CSS animation. */
+                        styles={buildStyles({ pathTransition: "none" })}
+                      />
+                    );
+                  }}
+                </AnimatedProgressProvider>
+              </div>
+            </div>
             <div id="where_to_watch">
               <div id="netflix_hulu_vudu">
                 <div id="netflix_div">
@@ -304,7 +355,34 @@ class Counter extends Component {
               <div id="plot_Val">{plotval}</div>
             </div>
           </div>
-          <div id="row2"></div>
+          <div id="row2">
+            <iframe
+              id="iframeid"
+              src={link}
+              width="570"
+              height="280"
+              allowfullscreen="true"
+              mozallowfullscreen="true"
+              webkitallowfullscreen="true"
+              frameborder="no"
+              scrolling="no"
+            ></iframe>
+
+            <div id="other_details">
+              <div id="mv_language">
+                LANGUAGE: <span id="lang_span">{language}</span>
+              </div>
+              <div id="mv_year">
+                RELEASE YEAR: <span id="year_span">{year}</span>
+              </div>
+              <div id="mv_runtime">
+                RUNTIME: <span id="runtime_span">{runtime}</span>
+              </div>
+            </div>
+            <div id="genre"></div>
+            <div id="cast_names"></div>
+          </div>
+
           <div id="row3"></div>
         </div>
       </div>

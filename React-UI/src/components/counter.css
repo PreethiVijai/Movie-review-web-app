@@ -52,7 +52,7 @@ body #page .header .logoheader img {
   grid-template-rows: 1fr 1fr;
   grid-gap: 10px;
 }
-#page #all_details #row1 #iframeid {
+#page #all_details #row2 #iframeid {
   border-radius: 25px;
 }
 #page #all_details #row1 #plot {
@@ -68,14 +68,11 @@ body #page .header .logoheader img {
   font-weight: normal;
   line-height: 170%;
 }
-/* #page #all_details #moviereview div {
-  border: 1px solid #cccccc;
-  padding: 100 px;
-  margin: 0;
-} */
-/* #page #all_details #moviereview #trailer {
-  height: 300px;
-} */
+#page #all_details #row2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
 
 /* #page #all_details #moviereview #tomatometer,
 #page #all_details #moviereview #cast {
@@ -156,4 +153,25 @@ body #page .header .logoheader img {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
+}
+#page #row1 .CircularProgressbar {
+  width: 44%;
+}
+#page #row2 #other_details #mv_language,
+#page #row2 #other_details #mv_year,
+#page #row2 #other_details #mv_runtime {
+  font-size: x-large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: darkred;
+  font-weight: bolder;
+  height: 100px;
+}
+#page #row2 #other_details #mv_language #lang_span,
+#page #row2 #other_details #mv_year #year_span,
+#page #row2 #other_details #mv_runtime #runtime_span {
+  font-size: larger;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #191970;
+  font-weight: big;
+  line-height: 170%;
 }

@@ -37,35 +37,47 @@ body #page .header .logoheader img {
 }
 #page #all_details {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 10px;
   margin-left: 15px;
-  margin-right: 15px;
   max-height: 100px;
 }
-#page #all_details div {
-  padding: 20px;
-  background-color: grey;
-  box-sizing: border-box;
-  border-radius: 25px;
-}
-#page #all_details #moviereview {
+#page #all_details #row1 {
   display: grid;
-  grid-template-rows: 1fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
 }
-#page #all_details #moviereview div {
-  border: 1px solid #000000;
-  padding: 100 px;
-  margin: 0;
+#page #row1 #where_to_watch {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
 }
-#page #all_details #moviereview #trailer {
-  height: 300px;
-}
-#page #all_details #moviereview #trailer iframe {
+#page #all_details #row1 #iframeid {
   border-radius: 25px;
 }
-#page #all_details #moviereview #tomatometer,
+#page #all_details #row1 #plot {
+  font-size: x-large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: darkred;
+  font-weight: bolder;
+}
+#page #all_details #row1 #plot_Val {
+  font-size: medium;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #000000;
+  font-weight: normal;
+  line-height: 170%;
+}
+/* #page #all_details #moviereview div {
+  border: 1px solid #cccccc;
+  padding: 100 px;
+  margin: 0;
+} */
+/* #page #all_details #moviereview #trailer {
+  height: 300px;
+} */
+
+/* #page #all_details #moviereview #tomatometer,
 #page #all_details #moviereview #cast {
   max-height: 150px;
 }
@@ -76,21 +88,19 @@ body #page .header .logoheader img {
   text-align: center;
 }
 #page #all_details #twitterfeed #feed {
-  border: 1px solid #000000;
+  border: 1px solid #cccccc;
   height: 400px;
+} */
+#page #row1 #where_to_watch #netflix_hulu_vudu #netflix_div,
+#page #row1 #where_to_watch #netflix_hulu_vudu #hulu_div,
+#page #row1 #where_to_watch #netflix_hulu_vudu #vudu_div,
+#page #row1 #where_to_watch #itunes_fandango #itunes_div,
+#page #row1 #where_to_watch #itunes_fandango #fandango_div {
+  float: left;
+  padding: 20px;
 }
-#page #all_details #screen_location {
-  display: grid;
-  grid-template-rows: 0fr 1fr;
-  grid-gap: 10px;
-}
-#page #all_details #screen_location #location {
-  border: 1px solid #000000;
-  margin: 0;
-  height: 60px;
-  text-align: left;
-}
-#page #all_details #screen_location #maps {
+
+#page #all_details #plot_grid #plot {
   border: 1px solid #000000;
   margin: 0;
 }
@@ -120,7 +130,7 @@ body #page .header .logoheader img {
   display: block;
   position: absolute;
   top: 29px;
-  right: 602px;
+  right: 614px;
   width: 400px;
   border: 1px solid #aaa;
   background-color: #fff;

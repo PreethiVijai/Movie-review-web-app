@@ -241,28 +241,26 @@ class Counter extends Component {
                   height="300px"
                 />
               </div>
-              <div id="pb">
-                <AnimatedProgressProvider
-                  valueStart={0}
-                  valueEnd={this.state.valueEnd}
-                  duration={1.4}
-                  easingFunction={easeQuadInOut}
-                >
-                  {value => {
-                    value = value * 10;
-                    const roundedValue = Math.round(value);
-                    return (
-                      <CircularProgressbar
-                        value={value}
-                        text={`${roundedValue / 10}%`}
-                        /* This is important to include, because if you're fully managing the
+              <AnimatedProgressProvider
+                valueStart={0}
+                valueEnd={this.state.valueEnd}
+                duration={1.4}
+                easingFunction={easeQuadInOut}
+              >
+                {value => {
+                  value = value * 10;
+                  const roundedValue = Math.round(value);
+                  return (
+                    <CircularProgressbar
+                      value={value}
+                      text={`${roundedValue / 10}%`}
+                      /* This is important to include, because if you're fully managing the
         animation yourself, you'll want to disable the CSS animation. */
-                        styles={buildStyles({ pathTransition: "none" })}
-                      />
-                    );
-                  }}
-                </AnimatedProgressProvider>
-              </div>
+                      styles={buildStyles({ pathTransition: "none" })}
+                    />
+                  );
+                }}
+              </AnimatedProgressProvider>
             </div>
             <div id="where_to_watch">
               <div id="netflix_hulu_vudu">

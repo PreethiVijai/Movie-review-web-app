@@ -52,6 +52,10 @@ body #page .header .logoheader img {
   grid-template-rows: 1fr 1fr;
   grid-gap: 10px;
 }
+#page #row1 #row1_part1 #movie_image {
+  padding-right: 35px;
+  float: left;
+}
 #page #all_details #row2 #iframeid {
   border-radius: 25px;
 }
@@ -154,8 +158,8 @@ body #page .header .logoheader img {
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
-#page #row1 .CircularProgressbar {
-  width: 44%;
+#page #row1 #row1_part1 .CircularProgressbar {
+  width: 25%;
 }
 #page #row2 #other_details #mv_language,
 #page #row2 #other_details #mv_year,

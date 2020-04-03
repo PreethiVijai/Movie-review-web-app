@@ -36,7 +36,7 @@ def suggest():
         raise ValueError("Connection failed")
 
     es.indices.refresh(index="test-index")
-    res = es.search(index="test-index", body={"query": {"match_all": {}}})
+    res = es.search(index="test-index", body={"query": {"match_all": {}}}, size=50)
     k = []
     for hit in res['hits']['hits']:
         k.append(hit["_source"])

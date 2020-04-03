@@ -5,7 +5,7 @@ from pymongo import MongoClient
 es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
 
 username = "scrumlords"
-password = ""
+password = "Bda2020$!"
 
 client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]
@@ -57,7 +57,7 @@ for x in tweetCol.find({},{ "_id": 0 }):
 #print(res)
 
 es.indices.refresh(index="test-index")
-res = es.search(index="test-index", body={"query": {"match_all": {}}})
+res = es.search(index="test-index", body={"query": {"match_all": {}}},size=50)
 #res=es.get(index='test-index',doc_type='tweet',id="tt1051906")
 #print(res)
 print("Got %d Hits:" % res['hits']['total'])

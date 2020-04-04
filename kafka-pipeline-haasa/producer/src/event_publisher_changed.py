@@ -49,8 +49,8 @@ for x in tweetCol.find({},{ "_id": 0 }):
     tname = tname.replace("'", "")
     for tweet in tweepy.Cursor(api.search, q=tname+" "+"#moviereview", count=10,\
                                lang="en",\
-                               since_id="2020-02-20",\
-                               until="2020-03-28").items(10):
+                               since_id="2020-03-29",\
+                               until="2020-04-02").items(10):
         sentimentScore=0                       
         sentimentScore= sentiment_analyzer_scores(tweet.text)                      
         msg = {'id': tweet.id_str,'movieId':movieId, 'movieName':tname,'sentimentScore':sentimentScore, 'tweet': tweet.text, 'tweet_coordinates': None,'tweet_place': None, 'user_place': None}

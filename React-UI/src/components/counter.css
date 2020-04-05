@@ -14,6 +14,13 @@ body #page .header .logoheader text {
   color: hsl(283, 86%, 30%);
   font-size: -webkit-xxx-large;
 }
+body #page #moviename {
+  text-align: center;
+  color: hsl(283, 86%, 30%);
+  font: 40px Arial, sans-serif;
+  font-weight: bolder;
+  height: 80px;
+}
 body #page .header .logoheader img {
   margin-top: -20px;
 }
@@ -44,7 +51,7 @@ body #page .header .logoheader img {
 }
 #page #all_details #row1 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr 0.9fr 1.1fr;
   grid-gap: 10px;
 }
 #page #row1 #where_to_watch {
@@ -59,15 +66,28 @@ body #page .header .logoheader img {
 #page #all_details #row2 #iframeid {
   border-radius: 25px;
 }
-#page #all_details #row1 #plot {
+#page #all_details #row1 #plot,
+#page #all_details #row2 #imdb_rating,
+#page #all_details #row2 #twitter_rating,
+#page #all_details #row1 #cast_names,
+#page #all_details #row3 #reviews,
+#page #all_details #row3 #heatmap {
   font-size: x-large;
   font-family: Georgia, "Times New Roman", Times, serif;
   color: darkred;
   font-weight: bolder;
 }
+#page #all_details #row3 #heatmap {
+  text-align: center;
+}
+#page #all_details #row2 #imdb_rating,
+#page #all_details #row2 #twitter_rating {
+  margin-top: 10px;
+  text-align: center;
+}
 #page #all_details #row1 #plot_Val {
   font-size: medium;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Arial, sans-serif;
   color: #000000;
   font-weight: normal;
   line-height: 170%;
@@ -77,21 +97,11 @@ body #page .header .logoheader img {
   grid-template-columns: 2fr 1fr 1fr 1fr;
   grid-gap: 10px;
 }
-
-/* #page #all_details #moviereview #tomatometer,
-#page #all_details #moviereview #cast {
-  max-height: 150px;
+#page #all_details #row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 }
-#page #all_details #twitterfeed #news {
-  font-size: 35px;
-  font-style: normal;
-  font-weight: bolder;
-  text-align: center;
-}
-#page #all_details #twitterfeed #feed {
-  border: 1px solid #cccccc;
-  height: 400px;
-} */
 #page #row1 #where_to_watch #netflix_hulu_vudu #netflix_div,
 #page #row1 #where_to_watch #netflix_hulu_vudu #hulu_div,
 #page #row1 #where_to_watch #netflix_hulu_vudu #vudu_div,
@@ -158,17 +168,28 @@ body #page .header .logoheader img {
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
-#page #row1 #row1_part1 .CircularProgressbar {
-  width: 25%;
+#page #row2 .CircularProgressbar {
+  width: 65%;
+  margin-top: 40px;
+}
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: orangered !important;
+}
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: lightsteelblue !important;
+}
+.CircularProgressbar .CircularProgressbar-text {
+  fill: orangered !important;
 }
 #page #row2 #other_details #mv_language,
 #page #row2 #other_details #mv_year,
-#page #row2 #other_details #mv_runtime {
+#page #row2 #other_details #mv_runtime,
+#page #row2 #other_details #mv_genre {
   font-size: x-large;
   font-family: Georgia, "Times New Roman", Times, serif;
   color: darkred;
   font-weight: bolder;
-  height: 100px;
+  height: 50px;
 }
 #page #row2 #other_details #mv_language #lang_span,
 #page #row2 #other_details #mv_year #year_span,
@@ -178,4 +199,19 @@ body #page .header .logoheader img {
   color: #191970;
   font-weight: big;
   line-height: 170%;
+}
+#page #row2 #other_details #mv_genre #genre_span li,
+#page #row1 #cast_names #cast_span li {
+  font-size: normal;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #191970;
+  font-weight: big;
+  line-height: 130%;
+}
+#page #where_to_watch #netflix.ishover:hover,
+#page #where_to_watch #itunes.ishover:hover,
+#page #where_to_watch #hulu.ishover:hover,
+#page #where_to_watch #vudu.ishover:hover,
+#page #where_to_watch #fandango.ishover:hover {
+  transform: scale(1.25);
 }

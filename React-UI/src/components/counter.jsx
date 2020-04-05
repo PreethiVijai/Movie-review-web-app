@@ -83,7 +83,7 @@ class Counter extends Component {
       var i;
       return moviesNames.filter(
         s =>
-          s.name.toLowerCase().includes(inputValue) ||
+          s.name.toLowerCase().startsWith(inputValue) ||
           s.year.toLowerCase().includes(inputValue)
       );
     }

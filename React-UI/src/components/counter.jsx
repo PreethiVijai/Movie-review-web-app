@@ -21,7 +21,10 @@ class Counter extends Component {
     suggestions: [],
     cacheAPISugestions: [],
     isOpen: false,
-    valueEnd: "0"
+    valueEnd: "0",
+    avgvalueEnd: "0",
+    genreitems: ["List Item 1", "List Item 2", "List Item 3"],
+    castitems: ["item1", "item2", "item3", "item4", "item5"]
   };
 
   SUGGEST_URL = "http://34.82.210.3:8080/suggest";
@@ -95,6 +98,7 @@ class Counter extends Component {
     let language = "English";
     let year = "2020";
     let runtime = "1880";
+    let avgsentiment = "0";
     /* Initialize all hrefs */
     let fandango_href = "http://www.fandangonow.com";
     let netflix_href = "http://www.netflix.com";
@@ -112,6 +116,8 @@ class Counter extends Component {
     const suggestions = this.state.suggestions;
     if (this.state.filterResults != null) {
       var results = this.state.filterResults[0];
+      var stringname = (results.name + " (" + results.year + ")").toUpperCase();
+      document.getElementById("moviename").textContent = stringname;
       videoid = results.trailer;
       link = `https://www.imdb.com/videoembed/${videoid}`;
       document.getElementById("iframeid").src = link;
@@ -127,8 +133,12 @@ class Counter extends Component {
       rating = results.rating;
       this.state.valueEnd = rating;
 
-      language = results.language;
+      if (results.avgsentiment != null) {
+        avgsentiment = results.avgsentiment;
+        this.state.avgvalueEnd = avgsentiment;
+      }
 
+      language = results.language;
       document.getElementById("lang_span").textContent = language;
 
       year = results.year;
@@ -137,29 +147,43 @@ class Counter extends Component {
       runtime = results.runtime;
       document.getElementById("runtime_span").textContent = runtime;
 
+      if (results.genreList != null) {
+        for (i in results.genreList) {
+          this.state.genreitems[i] = results.genreList[i];
+        }
+      }
+
+      if (results.cast != null) {
+        for (i in results.cast) {
+          this.state.castitems[i] = results.cast[i];
+        }
+      }
+
       if (results.watchList != null) {
+        function setIcons(href_id, idName, href) {
+          document.getElementById(href_id).href = href;
+          document.getElementById(href_id).title = href;
+          document.getElementById(idName).classList.add("ishover");
+          document.getElementById(idName).style.opacity = "1.0";
+          document.getElementById(idName).style.cursor = "pointer";
+        }
         for (var i in results.watchList) {
           var href = results.watchList[i];
           if (href.includes("netflix")) {
-            netflix_href = href;
             nset = true;
-            document.getElementById("netflix_watchlink").href = netflix_href;
+            setIcons("netflix_watchlink", "netflix", href);
           } else if (href.includes("hulu")) {
-            hulu_href = href;
             hset = true;
-            document.getElementById("hulu_watchlink").href = hulu_href;
+            setIcons("hulu_watchlink", "hulu", href);
           } else if (href.includes("vudu")) {
-            vudu_href = href;
             vset = true;
-            document.getElementById("vudu_watchlink").href = vudu_href;
+            setIcons("vudu_watchlink", "vudu", href);
           } else if (href.includes("itunes")) {
-            itunes_href = href;
             iset = true;
-            document.getElementById("itunes_watchlink").href = itunes_href;
+            setIcons("itunes_watchlink", "itunes", href);
           } else if (href.includes("fandango")) {
-            fandango_href = href;
             fset = true;
-            document.getElementById("fandango_watchlink").href = fandango_href;
+            setIcons("fandango_watchlink", "fandango", href);
           }
         }
         function changeIcons(watchlink, idName) {
@@ -168,6 +192,7 @@ class Counter extends Component {
             "This movie is not available on netflix";
           document.getElementById(idName).style.opacity = "0.3";
           document.getElementById(idName).style.cursor = "default";
+          document.getElementById(idName).classList.remove("ishover");
         }
         if (nset == false) {
           changeIcons("netflix_watchlink", "netflix");
@@ -230,6 +255,8 @@ class Counter extends Component {
           />
         </div>
         {/* header div ends here */}
+        <div id="moviename"></div>
+
         <div id="all_details">
           <div id="row1">
             <div id="row1_part1">
@@ -241,26 +268,16 @@ class Counter extends Component {
                   height="300px"
                 />
               </div>
-              <AnimatedProgressProvider
-                valueStart={0}
-                valueEnd={this.state.valueEnd}
-                duration={1.4}
-                easingFunction={easeQuadInOut}
-              >
-                {value => {
-                  value = value * 10;
-                  const roundedValue = Math.round(value);
-                  return (
-                    <CircularProgressbar
-                      value={value}
-                      text={`${roundedValue / 10}%`}
-                      /* This is important to include, because if you're fully managing the
-        animation yourself, you'll want to disable the CSS animation. */
-                      styles={buildStyles({ pathTransition: "none" })}
-                    />
-                  );
-                }}
-              </AnimatedProgressProvider>
+            </div>
+            <div id="cast_names">
+              CAST:
+              <span id="cast_span">
+                <ul>
+                  {this.state.castitems.map(listitem => (
+                    <li className="list_group_item">{listitem}</li>
+                  ))}
+                </ul>
+              </span>
             </div>
             <div id="where_to_watch">
               <div id="netflix_hulu_vudu">
@@ -365,7 +382,6 @@ class Counter extends Component {
               frameborder="no"
               scrolling="no"
             ></iframe>
-
             <div id="other_details">
               <div id="mv_language">
                 LANGUAGE: <span id="lang_span">{language}</span>
@@ -376,12 +392,69 @@ class Counter extends Component {
               <div id="mv_runtime">
                 RUNTIME: <span id="runtime_span">{runtime}</span>
               </div>
+              <div id="mv_genre">
+                GENRE:
+                <span id="genre_span">
+                  <ul>
+                    {this.state.genreitems.map(listitem => (
+                      <li className="list_group_item">{listitem}</li>
+                    ))}
+                  </ul>
+                </span>
+              </div>
             </div>
-            <div id="genre"></div>
-            <div id="cast_names"></div>
+            <div id="imdb_rating">
+              IMDB Rating:
+              <AnimatedProgressProvider
+                valueStart={0}
+                valueEnd={this.state.valueEnd}
+                duration={1.4}
+                easingFunction={easeQuadInOut}
+              >
+                {value => {
+                  value = value * 10;
+                  const roundedValue = Math.round(value);
+                  return (
+                    <CircularProgressbar
+                      value={value}
+                      text={`${roundedValue / 10}`}
+                      /* This is important to include, because if you're fully managing the
+        animation yourself, you'll want to disable the CSS animation. */
+                      styles={buildStyles({ pathTransition: "none" })}
+                    />
+                  );
+                }}
+              </AnimatedProgressProvider>
+            </div>
+            <div id="twitter_rating">
+              Twitter Rating:
+              <AnimatedProgressProvider
+                valueStart={0}
+                valueEnd={this.state.avgvalueEnd}
+                duration={1.4}
+                easingFunction={easeQuadInOut}
+              >
+                {value => {
+                  value = value * 100;
+                  const roundedValue = Math.round(value);
+                  return (
+                    <CircularProgressbar
+                      value={value}
+                      text={`${roundedValue / 100}`}
+                      /* This is important to include, because if you're fully managing the
+        animation yourself, you'll want to disable the CSS animation. */
+                      styles={buildStyles({ pathTransition: "none" })}
+                    />
+                  );
+                }}
+              </AnimatedProgressProvider>
+            </div>
           </div>
 
-          <div id="row3"></div>
+          <div id="row3">
+            <div id="reviews">REVIEW:</div>
+            <div id="heatmap">HEATMAP:</div>
+          </div>
         </div>
       </div>
     );

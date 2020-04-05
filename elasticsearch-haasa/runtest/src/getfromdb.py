@@ -89,7 +89,7 @@ def getAbbreviation(loc):
 
 
 username = "scrumlords"
-password = "Bda2020$!"
+password = ""
 
 client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]
@@ -118,7 +118,7 @@ for x in tweetCol.find({"movieId":"tt8946378"}):
             Loc1= getAbbreviation(loc)
             if(Loc1 is not None):
                 tweetLocations.append(Loc1)
-        if(doc[u'tweet_place'] is not None):
+        elif(doc[u'tweet_place'] is not None):
             print(doc[u'tweet_place'])
             loc= doc[u'tweet_place'].encode('ascii', 'replace')
             Loc1=None

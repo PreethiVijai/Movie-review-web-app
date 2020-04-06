@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./counter.css";
 import logo from "./cine.png";
-import bg from "./752715.jpg";
 import netflix_icon from "./netflix.png";
 import itunes_icon from "./itunes.png";
 import hulu_icon from "./hulu-icon.png";
@@ -27,9 +26,11 @@ class Counter extends Component {
     avgvalueEnd: "0",
     genreitems: ["List Item 1", "List Item 2", "List Item 3"],
     castitems: ["item1", "item2", "item3", "item4", "item5"],
+    reviews: ["item1", "item2", "item3", "item4", "item5"]
   };
 
   SUGGEST_URL = "http://localhost:8080/suggest";
+  // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
     this.onSuggestionsFetchRequested = debounce(
@@ -46,10 +47,11 @@ class Counter extends Component {
     this.setState({
       value: newValue,
     });
+    
   };
   componentDidMount() {
     axios.get(this.SUGGEST_URL, {}).then((res) => {
-      this.setState({ cacheAPISugestions: res.data });
+      this.setState({ cacheAPISugestions: res.data});
     });
   }
 
@@ -66,28 +68,32 @@ class Counter extends Component {
   };
   onSuggestionSelected = (event, { suggestionValue }) => {
     var filterRes = this.state.suggestions;
-<<<<<<< HEAD
     filterRes = filterRes.filter(item => item.name === suggestionValue);
     if (filterRes !== 0) {
-=======
-    filterRes = filterRes.filter((item) => item.name == suggestionValue);
-    if (filterRes != 0) {
->>>>>>> e018d6bf20daa97aea7d08ca79116aa856ba73bc
       this.setState({
         filterResults: filterRes,
+      // }, () => {
+      //   axios.get(this.REVIEWS_URL, {
+      //     params: {
+      //       value: suggestionValue
+      //     }
+      //   }).then((res) => {
+      //     this.setState({ reviews: res.data});
+      //   });
+      // }
       });
     } else {
       this.setState({
         filterResults: this.state.suggestions,
       });
     }
+
   };
   getSuggestions = (moviesNames, searchValue) => {
     const inputValue = searchValue.trim().toLowerCase();
     const inputLength = inputValue.length;
     if (inputLength === 0) return [];
     else {
-      var i;
       return moviesNames.filter(
         (s) =>
           s.name.toLowerCase().startsWith(inputValue) ||
@@ -106,6 +112,7 @@ class Counter extends Component {
     let year = "2020";
     let runtime = "1880";
     let avgsentiment = "0";
+    let reviews = "";
     /* Initialize all hrefs */
     let fandango_href = "http://www.fandangonow.com";
     let netflix_href = "http://www.netflix.com";
@@ -135,8 +142,6 @@ class Counter extends Component {
       movie_image = results.imageurl;
       document.getElementById("mv_img").src = movie_image;
 
-      console.log(results);
-
       rating = results.rating;
       this.state.valueEnd = rating;
 
@@ -151,8 +156,13 @@ class Counter extends Component {
       year = results.year;
       document.getElementById("year_span").textContent = year;
 
+      
+
       runtime = results.runtime;
       document.getElementById("runtime_span").textContent = runtime;
+
+      console.log(results);
+
 
       if (results.genreList != null) {
         for (i in results.genreList) {
@@ -163,6 +173,13 @@ class Counter extends Component {
       if (results.cast != null) {
         for (i in results.cast) {
           this.state.castitems[i] = results.cast[i];
+        }
+      }
+
+      if (results.reviewsList != null) {
+        console.log("HERE");
+        for (i in results.reviewsList) {
+          this.state.reviews[i] = results.reviewsList[i];
         }
       }
 
@@ -234,6 +251,7 @@ class Counter extends Component {
         />
         <input {...inputProps} />
       </div>
+      
     );
 
     return (
@@ -250,6 +268,7 @@ class Counter extends Component {
             />
             <text>CINEPHILE</text>
           </span>
+          
 
           <Autosuggest
             suggestions={suggestions}
@@ -464,7 +483,13 @@ class Counter extends Component {
           </div>
 
           <div id="row3">
-            <div id="reviews">REVIEW:</div>
+            <div id="reviews">REVIEW:
+            <ul>
+            {this.state.reviews.map((listitem) => (
+                    <li className="list_group_item">{listitem}</li>
+                  ))}
+            </ul>
+            </div>
             <div id="heatmap">
               HEATMAP:
               <USAmap></USAmap>

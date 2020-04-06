@@ -2,9 +2,9 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from pymongo import MongoClient
 #es = Elasticsearch()
-es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
-if not es.ping():
-    raise ValueError("Connection failed")
+es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+# if not es.ping():
+#     raise ValueError("Connection failed")
 username = "scrumlords"
 password = "Bda2020$!"
 

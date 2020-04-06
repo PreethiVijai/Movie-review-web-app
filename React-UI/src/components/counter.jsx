@@ -27,7 +27,7 @@ class Counter extends Component {
     castitems: ["item1", "item2", "item3", "item4", "item5"]
   };
 
-  SUGGEST_URL = "http://34.82.210.3:8080/suggest";
+  SUGGEST_URL = "http://localhost:8080/suggest";
 
   componentWillMount() {
     this.onSuggestionsFetchRequested = debounce(
@@ -64,8 +64,8 @@ class Counter extends Component {
   };
   onSuggestionSelected = (event, { suggestionValue }) => {
     var filterRes = this.state.suggestions;
-    filterRes = filterRes.filter(item => item.name == suggestionValue);
-    if (filterRes != 0) {
+    filterRes = filterRes.filter(item => item.name === suggestionValue);
+    if (filterRes !== 0) {
       this.setState({
         filterResults: filterRes
       });
@@ -266,6 +266,7 @@ class Counter extends Component {
                   src="https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg"
                   width="250px"
                   height="300px"
+                  alt="Movie_Image"
                 />
               </div>
             </div>
@@ -294,6 +295,7 @@ class Counter extends Component {
                       width="100px"
                       height="100px"
                       opacity="1.0"
+                      alt="Netflix_Image"
                     />
                   </a>
                 </div>
@@ -310,6 +312,7 @@ class Counter extends Component {
                       width="100px"
                       height="100px"
                       opacity="1.0"
+                      alt="Hulu_Image"
                     />
                   </a>
                 </div>
@@ -326,6 +329,7 @@ class Counter extends Component {
                       width="100px"
                       height="100px"
                       opacity="1.0"
+                      alt="Vudu_Image"
                     />
                   </a>
                 </div>

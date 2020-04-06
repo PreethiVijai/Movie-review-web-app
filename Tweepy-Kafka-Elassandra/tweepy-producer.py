@@ -37,6 +37,8 @@ class StdOutListener(StreamListener):
 
         msg = json.dumps(msg)
 
+        print(msg)
+
         producer.produce("test",msg.encode('utf-8'))
 
 

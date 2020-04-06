@@ -31,6 +31,25 @@ def status():
 @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
 @cache.cached(timeout=50)
 def suggest():
+    print("hello")
+    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    if not es.ping():
+        raise ValueError("Connection failed")
+
+    es.indices.refresh(index="test-index")
+    res = es.search(index="test-index", body={"query": {"match_all": {}}})
+    k=[]
+    for hit in res['hits']['hits']:
+        k.append(hit["_source"])
+
+    print(res)
+
+    return dumps(k)
+
+@app.route('/reviews', methods=["GET"])
+@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+@cache.cached(timeout=50)
+def getReviews():
     es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
     if not es.ping():
         raise ValueError("Connection failed")

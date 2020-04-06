@@ -1,0 +1,22 @@
+from elasticsearch import Elasticsearch
+
+elastic = Elasticsearch(hosts=["localhost"])
+
+mapping = {
+    "mappings": {
+        "properties": {
+            "id": {
+                "type": "text"
+            },
+            "tweet": {
+                "type": "text"
+            },
+            "tweet_coordinates": {
+                "type": "object"
+            },
+            "'tweet_place": {
+                "type": "text"
+            }
+        }
+    }
+}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import USAMap from "react-usa-map";
 
-class App extends Component {
+class USAmap extends Component {
   mapHandler = (event) => {
     alert(event.target.dataset.name);
   };
@@ -18,19 +18,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>react-usa-map</h1>
-        <USAMap
-          customize={this.statesFilling()}
-          onClick={this.mapHandler}
-        />
-        <p>
-          More information:{" "}
-          <a href="http://github.com/gabidavila/react-usa-map">GitHub</a>
-        </p>
+      <div className="Usamap">
+        <USAMap customize={this.statesFilling()} onClick={this.mapHandler} />
       </div>
     );
   }
 }
 
-export default App;
+export default USAmap;

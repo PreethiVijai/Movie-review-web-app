@@ -29,7 +29,7 @@ class Counter extends Component {
     reviews: ["item1", "item2", "item3", "item4", "item5"]
   };
 
-  SUGGEST_URL = "http://localhost:8080/suggest";
+  SUGGEST_URL = "http://34.82.210.3:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {

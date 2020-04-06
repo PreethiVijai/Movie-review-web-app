@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./counter.css";
 import logo from "./cine.png";
+import bg from "./752715.jpg";
 import netflix_icon from "./netflix.png";
 import itunes_icon from "./itunes.png";
 import hulu_icon from "./hulu-icon.png";
@@ -14,6 +15,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 // Animation
 import AnimatedProgressProvider from "../AnimatedProgressProvider";
+import USAmap from "../heatmap";
 
 class Counter extends Component {
   state = {
@@ -24,7 +26,7 @@ class Counter extends Component {
     valueEnd: "0",
     avgvalueEnd: "0",
     genreitems: ["List Item 1", "List Item 2", "List Item 3"],
-    castitems: ["item1", "item2", "item3", "item4", "item5"]
+    castitems: ["item1", "item2", "item3", "item4", "item5"],
   };
 
   SUGGEST_URL = "http://34.82.210.3:8080/suggest";
@@ -36,42 +38,42 @@ class Counter extends Component {
     );
   }
 
-  renderSuggestion = suggestion => {
+  renderSuggestion = (suggestion) => {
     return <span>{suggestion.name}</span>;
   };
 
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue
+      value: newValue,
     });
   };
   componentDidMount() {
-    axios.get(this.SUGGEST_URL, {}).then(res => {
+    axios.get(this.SUGGEST_URL, {}).then((res) => {
       this.setState({ cacheAPISugestions: res.data });
     });
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: this.getSuggestions(this.state.cacheAPISugestions, value)
+      suggestions: this.getSuggestions(this.state.cacheAPISugestions, value),
     });
   };
 
   onSuggestionsClearRequested = () => {
     this.setState({
-      suggestions: []
+      suggestions: [],
     });
   };
   onSuggestionSelected = (event, { suggestionValue }) => {
     var filterRes = this.state.suggestions;
-    filterRes = filterRes.filter(item => item.name == suggestionValue);
+    filterRes = filterRes.filter((item) => item.name == suggestionValue);
     if (filterRes != 0) {
       this.setState({
-        filterResults: filterRes
+        filterResults: filterRes,
       });
     } else {
       this.setState({
-        filterResults: this.state.suggestions
+        filterResults: this.state.suggestions,
       });
     }
   };
@@ -82,7 +84,7 @@ class Counter extends Component {
     else {
       var i;
       return moviesNames.filter(
-        s =>
+        (s) =>
           s.name.toLowerCase().startsWith(inputValue) ||
           s.year.toLowerCase().includes(inputValue)
       );
@@ -215,9 +217,9 @@ class Counter extends Component {
     const inputProps = {
       placeholder: " Enter movie name or year",
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
     };
-    const renderInputComponent = inputProps => (
+    const renderInputComponent = (inputProps) => (
       <div className="inputContainer">
         <img
           className="icon"
@@ -232,6 +234,7 @@ class Counter extends Component {
     return (
       <div id="page">
         <div class="header">
+          <div class="bg-image"></div>
           <span class="logoheader">
             <img
               alt=""
@@ -247,7 +250,7 @@ class Counter extends Component {
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={suggestion => suggestion.name}
+            getSuggestionValue={(suggestion) => suggestion.name}
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionSelected}
             inputProps={inputProps}
@@ -273,7 +276,7 @@ class Counter extends Component {
               CAST:
               <span id="cast_span">
                 <ul>
-                  {this.state.castitems.map(listitem => (
+                  {this.state.castitems.map((listitem) => (
                     <li className="list_group_item">{listitem}</li>
                   ))}
                 </ul>
@@ -396,7 +399,7 @@ class Counter extends Component {
                 GENRE:
                 <span id="genre_span">
                   <ul>
-                    {this.state.genreitems.map(listitem => (
+                    {this.state.genreitems.map((listitem) => (
                       <li className="list_group_item">{listitem}</li>
                     ))}
                   </ul>
@@ -411,7 +414,7 @@ class Counter extends Component {
                 duration={1.4}
                 easingFunction={easeQuadInOut}
               >
-                {value => {
+                {(value) => {
                   value = value * 10;
                   const roundedValue = Math.round(value);
                   return (
@@ -434,7 +437,7 @@ class Counter extends Component {
                 duration={1.4}
                 easingFunction={easeQuadInOut}
               >
-                {value => {
+                {(value) => {
                   value = value * 100;
                   const roundedValue = Math.round(value);
                   return (
@@ -453,7 +456,10 @@ class Counter extends Component {
 
           <div id="row3">
             <div id="reviews">REVIEW:</div>
-            <div id="heatmap">HEATMAP:</div>
+            <div id="heatmap">
+              HEATMAP:
+              <USAmap></USAmap>
+            </div>
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from pymongo import MongoClient
+import re
 #es = Elasticsearch()
+# host - elasticsearch
 es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
 if not es.ping():
     raise ValueError("Connection failed")
@@ -13,6 +15,58 @@ db = client["scraping"]
 tweetCol = db["movies_test"]
 db1 = client["realTime"]
 tweetCol1 = db1["tweets_test_1"]
+states = {
+    "AL": ["alabama"],
+    "AK": ["Alaska"],
+    "AZ": ["Arizona"],
+    "AR": ["Arkansas"],
+    "CA": ["California"],
+    "CO": ["Colorado"],
+    "CT": ["Connecticut"],
+    "DE": ["Delaware"],
+    "FL": ["Florida"],
+    "GA": ["Georgia"],
+    "HI": ["Hawaii"],
+    "ID": ["Idaho"],
+    "IL": ["Illinois"],
+    "IN": ["Indiana"],
+    "IA": ["Iowa"],
+    "KS": ["Kansas"],
+    "KY": ["Kentucky"],
+    "LA": ["Louisiana"],
+    "ME": ["Maine"],
+    "MD": ["Maryland"],
+    "MA": ["Massachusetts"],
+    "MI": ["Michigan"],
+    "MN": ["Minnesota"],
+    "MS": ["Mississippi"],
+    "MO": ["Missouri"],
+    "MT": ["Montana"],
+    "NE": ["Nebraska"],
+    "NV": ["Nevada"],
+    "NH": ["NewHampshire", "New Hampshire"],
+    "NJ": ["NewJersey", "New Jersey"],
+    "NM": ["NewMexico", "New Mexico"],
+    "NY": ["NewYork", "New York"],
+    "NC": ["NorthCarolina", "North Carolina"],
+    "ND": ["NorthDakota", "North Dakota"],
+    "OH": ["Ohio"],
+    "OK": ["Oklahoma"],
+    "OR": ["Oregon"],
+    "PA": ["Pennsylvania"],
+    "RI": ["RhodeIsland", "Rhode Island"],
+    "SC": ["South Carolina", "SountCarolina"],
+    "SD": ["South Dakota", "SouthDakota"],
+    "TN": ["Tennessee"],
+    "TX": ["Texas"],
+    "UT": ["Utah"],
+    "VT": ["Vermont"],
+    "VA": ["virginia"],
+    "WA": ["Washington"],
+    "WV": ["West Virginia", "WestVirginia"],
+    "WI": ["Wisconsin"],
+    "WY": ["Wyoming"],
+  }
 for x in tweetCol.find({},{ "_id": 0 }):
     #print(x)
     #print("new line")  
@@ -50,9 +104,24 @@ for x in tweetCol.find({},{ "_id": 0 }):
     'avgsentiment':avgsentiment,
     'tweetLocations': tweetLocations
     }
-    #print(x1)
+    # filtering tweetLocations - so it contains only state abbreviations. - testing / crude filtering.
+    TL = set()
+    for elem in x1['tweetLocations']:
+        if elem is not None:
+            for state in states.keys():
+                state1 = state.lower()
+                elem1 = elem.lower()
+                if re.search(state1, elem1):
+                    TL.add(state)
+                else:
+                    for syn in states[state]:
+                        if re.search(state1, elem1):
+                            TL.add(state)
+    x1['tweetLocations'] = list(TL)
+
     res = es.index(index="test-index", doc_type='tweet', id=movieId, body=x1)
-    #print(res)
+    print(x1)
+    print(res)
 
 #res = es.get(index="test-index", doc_type='tweet', id=1)
 #print(res)

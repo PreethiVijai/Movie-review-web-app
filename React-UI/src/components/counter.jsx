@@ -26,10 +26,12 @@ class Counter extends Component {
     avgvalueEnd: "0",
     genreitems: ["List Item 1", "List Item 2", "List Item 3"],
     castitems: ["item1", "item2", "item3", "item4", "item5"],
-    reviews: ["item1", "item2", "item3", "item4", "item5"]
+    reviews: ["item1", "item2", "item3", "item4", "item5"],
+    tweetLocations: [],
   };
 
-  SUGGEST_URL = "http://34.82.210.3:8080/suggest";
+  // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
+  SUGGEST_URL = "http://localhost:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -47,11 +49,10 @@ class Counter extends Component {
     this.setState({
       value: newValue,
     });
-    
   };
   componentDidMount() {
     axios.get(this.SUGGEST_URL, {}).then((res) => {
-      this.setState({ cacheAPISugestions: res.data});
+      this.setState({ cacheAPISugestions: res.data });
     });
   }
 
@@ -68,26 +69,25 @@ class Counter extends Component {
   };
   onSuggestionSelected = (event, { suggestionValue }) => {
     var filterRes = this.state.suggestions;
-    filterRes = filterRes.filter(item => item.name === suggestionValue);
+    filterRes = filterRes.filter((item) => item.name === suggestionValue);
     if (filterRes !== 0) {
       this.setState({
         filterResults: filterRes,
-      // }, () => {
-      //   axios.get(this.REVIEWS_URL, {
-      //     params: {
-      //       value: suggestionValue
-      //     }
-      //   }).then((res) => {
-      //     this.setState({ reviews: res.data});
-      //   });
-      // }
+        // }, () => {
+        //   axios.get(this.REVIEWS_URL, {
+        //     params: {
+        //       value: suggestionValue
+        //     }
+        //   }).then((res) => {
+        //     this.setState({ reviews: res.data});
+        //   });
+        // }
       });
     } else {
       this.setState({
         filterResults: this.state.suggestions,
       });
     }
-
   };
   getSuggestions = (moviesNames, searchValue) => {
     const inputValue = searchValue.trim().toLowerCase();
@@ -101,6 +101,11 @@ class Counter extends Component {
       );
     }
   };
+
+  componentWillUnmount() {
+    //not working
+    this.state["tweetLocations"] = [];
+  }
 
   render() {
     let videoid = "vi2308751129";
@@ -143,6 +148,7 @@ class Counter extends Component {
       document.getElementById("mv_img").src = movie_image;
 
       rating = results.rating;
+
       this.state.valueEnd = rating;
 
       if (results.avgsentiment != null) {
@@ -156,19 +162,23 @@ class Counter extends Component {
       year = results.year;
       document.getElementById("year_span").textContent = year;
 
-      
-
       runtime = results.runtime;
       document.getElementById("runtime_span").textContent = runtime;
 
       console.log(results);
 
-
       if (results.genreList != null) {
-        for (i in results.genreList) {
-          this.state.genreitems[i] = results.genreList[i];
+        //this.state.genreitems[i] = results.genreList;
+      }
+      var i;
+      this.state.tweetLocations = [];
+      if (results.tweetLocations.length > 0) {
+        for (i in results.tweetLocations) {
+          this.state.tweetLocations.push(results.tweetLocations[i]);
         }
       }
+      console.log(results.tweetLocations);
+      console.log(this.state.tweetLocations);
 
       if (results.cast != null) {
         for (i in results.cast) {
@@ -177,7 +187,6 @@ class Counter extends Component {
       }
 
       if (results.reviewsList != null) {
-        console.log("HERE");
         for (i in results.reviewsList) {
           this.state.reviews[i] = results.reviewsList[i];
         }
@@ -191,7 +200,7 @@ class Counter extends Component {
           document.getElementById(idName).style.opacity = "1.0";
           document.getElementById(idName).style.cursor = "pointer";
         }
-        for (var i in results.watchList) {
+        for (i in results.watchList) {
           var href = results.watchList[i];
           if (href.includes("netflix")) {
             nset = true;
@@ -218,19 +227,19 @@ class Counter extends Component {
           document.getElementById(idName).style.cursor = "default";
           document.getElementById(idName).classList.remove("ishover");
         }
-        if (nset == false) {
+        if (nset === false) {
           changeIcons("netflix_watchlink", "netflix");
         }
-        if (hset == false) {
+        if (hset === false) {
           changeIcons("hulu_watchlink", "hulu");
         }
-        if (vset == false) {
+        if (vset === false) {
           changeIcons("vudu_watchlink", "vudu");
         }
-        if (fset == false) {
+        if (fset === false) {
           changeIcons("fandango_watchlink", "fandango");
         }
-        if (iset == false) {
+        if (iset === false) {
           changeIcons("itunes_watchlink", "itunes");
         }
       }
@@ -251,7 +260,6 @@ class Counter extends Component {
         />
         <input {...inputProps} />
       </div>
-      
     );
 
     return (
@@ -268,7 +276,6 @@ class Counter extends Component {
             />
             <text>CINEPHILE</text>
           </span>
-          
 
           <Autosuggest
             suggestions={suggestions}
@@ -483,16 +490,17 @@ class Counter extends Component {
           </div>
 
           <div id="row3">
-            <div id="reviews">REVIEW:
-            <ul>
-            {this.state.reviews.map((listitem) => (
-                    <li className="list_group_item">{listitem}</li>
-                  ))}
-            </ul>
+            <div id="reviews">
+              REVIEW:
+              <ul>
+                {this.state.reviews.map((listitem) => (
+                  <li className="list_group_item">{listitem}</li>
+                ))}
+              </ul>
             </div>
             <div id="heatmap">
-              HEATMAP:
-              <USAmap></USAmap>
+              HEATMAP: console.console.log(this.state.tweetLocations);
+              <USAmap stateNames={this.state.tweetLocations}></USAmap>
             </div>
           </div>
         </div>

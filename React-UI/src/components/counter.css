@@ -5,6 +5,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 #page .header {
   padding: 30px;
   text-align: center;
@@ -189,7 +191,6 @@ body #page .header .logoheader img {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: darkred;
   font-weight: bolder;
-  height: 50px;
 }
 #page #row2 #other_details #mv_language #lang_span,
 #page #row2 #other_details #mv_year #year_span,

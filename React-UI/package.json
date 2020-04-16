@@ -20,6 +20,8 @@
     "react-native-windows": "^1.0.0",
     "react-scripts": "3.4.0",
     "react-select": "^2.0.0-beta.7",
+    "react-usa-map": "^1.4.0",
+    "styled-components": "^5.1.0",
     "throttle-debounce": "^2.1.0"
   },
   "scripts": {

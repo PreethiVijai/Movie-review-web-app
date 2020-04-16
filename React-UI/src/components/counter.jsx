@@ -11,7 +11,7 @@ import { debounce } from "throttle-debounce";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { easeQuadInOut } from "d3-ease";
 import "react-circular-progressbar/dist/styles.css";
-
+import styled from 'styled-components';
 // Animation
 import AnimatedProgressProvider from "../AnimatedProgressProvider";
 import USAmap from "../heatmap";
@@ -304,7 +304,7 @@ class Counter extends Component {
                 />
               </div>
             </div>
-            <div id="cast_names">
+            <div id="cast_names" style={divStyle}>
               CAST:
               <span id="cast_span">
                 <ul>
@@ -314,7 +314,7 @@ class Counter extends Component {
                 </ul>
               </span>
             </div>
-            <div id="where_to_watch">
+            <div id="where_to_watch" style={divStyle}>
               <div id="netflix_hulu_vudu">
                 <div id="netflix_div">
                   <a
@@ -403,7 +403,7 @@ class Counter extends Component {
                 </div>
               </div>
             </div>
-            <div id="plot">
+            <div id="plot" style={divStyle}>
               PLOT:
               <div id="plot_Val">{plotval}</div>
             </div>
@@ -420,7 +420,7 @@ class Counter extends Component {
               frameborder="no"
               scrolling="no"
             ></iframe>
-            <div id="other_details">
+            <div id="other_details" style={divStyle}>
               <div id="mv_language">
                 LANGUAGE: <span id="lang_span">{language}</span>
               </div>
@@ -441,7 +441,7 @@ class Counter extends Component {
                 </span>
               </div>
             </div>
-            <div id="imdb_rating">
+            <div id="imdb_rating" style={divStyle}>
               IMDB Rating:
               <AnimatedProgressProvider
                 valueStart={0}
@@ -464,7 +464,7 @@ class Counter extends Component {
                 }}
               </AnimatedProgressProvider>
             </div>
-            <div id="twitter_rating">
+            <div id="twitter_rating" style={divStyle}>
               Twitter Rating:
               <AnimatedProgressProvider
                 valueStart={0}
@@ -490,7 +490,7 @@ class Counter extends Component {
           </div>
 
           <div id="row3">
-            <div id="reviews">
+            <div id="reviews" style={divStyle}>
               REVIEW:
               <ul>
                 {this.state.reviews.map((listitem) => (
@@ -508,5 +508,13 @@ class Counter extends Component {
     );
   }
 }
+
+const divStyle ={
+
+    border: '5px solid lightpink',
+    borderRadius: '20px',
+    padding:'5px'
+
+};
 
 export default Counter;

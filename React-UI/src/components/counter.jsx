@@ -31,7 +31,7 @@ class Counter extends Component {
   };
 
   // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
-  SUGGEST_URL = "http://localhost:8080/suggest";
+  SUGGEST_URL = "http://35.199.172.180:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -166,9 +166,11 @@ class Counter extends Component {
       document.getElementById("runtime_span").textContent = runtime;
 
       console.log(results);
-
+      
       if (results.genreList != null) {
-        //this.state.genreitems[i] = results.genreList;
+        for (i in results.genreList) {
+          this.state.genreitems[i] = results.genreList[i];
+        }
       }
       var i;
       this.state.tweetLocations = [];
@@ -491,7 +493,7 @@ class Counter extends Component {
 
           <div id="row3">
             <div id="reviews" style={divStyle}>
-              REVIEW:
+              REVIEWS:
               <ul>
                 {this.state.reviews.map((listitem) => (
                   <li className="list_group_item">{listitem}</li>
@@ -499,7 +501,7 @@ class Counter extends Component {
               </ul>
             </div>
             <div id="heatmap">
-              HEATMAP: console.console.log(this.state.tweetLocations);
+              HEATMAP: 
               <USAmap stateNames={this.state.tweetLocations}></USAmap>
             </div>
           </div>

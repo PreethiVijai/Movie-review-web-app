@@ -6,6 +6,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#page {
+  height: 100vh;
+  margin: 0;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  background-image: url("./bg.jpg");
+}
 
 #page .header {
   padding: 30px;
@@ -110,7 +119,7 @@ body #page .header .logoheader img {
 #page #row1 #where_to_watch #itunes_fandango #itunes_div,
 #page #row1 #where_to_watch #itunes_fandango #fandango_div {
   float: left;
-  padding: 20px;
+  padding: 8px;
 }
 
 #page #all_details #plot_grid #plot {
@@ -174,6 +183,7 @@ body #page .header .logoheader img {
   width: 65%;
   margin-top: 40px;
 }
+/*
 .CircularProgressbar .CircularProgressbar-path {
   stroke: orangered !important;
 }
@@ -183,6 +193,7 @@ body #page .header .logoheader img {
 .CircularProgressbar .CircularProgressbar-text {
   fill: orangered !important;
 }
+*/
 #page #row2 #other_details #mv_language,
 #page #row2 #other_details #mv_year,
 #page #row2 #other_details #mv_runtime,

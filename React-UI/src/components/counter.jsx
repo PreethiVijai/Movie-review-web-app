@@ -31,7 +31,7 @@ class Counter extends Component {
   };
 
   // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
-  SUGGEST_URL = "http://35.199.172.180:8080/suggest";
+  SUGGEST_URL = "http://34.83.211.68:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -118,6 +118,7 @@ class Counter extends Component {
     let runtime = "1880";
     let avgsentiment = "0";
     let reviews = "";
+    let color1 = "black";
     /* Initialize all hrefs */
     let fandango_href = "http://www.fandangonow.com";
     let netflix_href = "http://www.netflix.com";
@@ -166,7 +167,7 @@ class Counter extends Component {
       document.getElementById("runtime_span").textContent = runtime;
 
       console.log(results);
-      
+
       if (results.genreList != null) {
         for (i in results.genreList) {
           this.state.genreitems[i] = results.genreList[i];
@@ -328,8 +329,8 @@ class Counter extends Component {
                     <img
                       id="netflix"
                       src={netflix_icon}
-                      width="100px"
-                      height="100px"
+                      width="75px"
+                      height="75px"
                       opacity="1.0"
                       alt="Netflix_Image"
                     />
@@ -345,8 +346,8 @@ class Counter extends Component {
                     <img
                       id="hulu"
                       src={hulu_icon}
-                      width="100px"
-                      height="100px"
+                      width="75px"
+                      height="75px"
                       opacity="1.0"
                       alt="Hulu_Image"
                     />
@@ -362,8 +363,8 @@ class Counter extends Component {
                     <img
                       id="vudu"
                       src={vudu_icon}
-                      width="100px"
-                      height="100px"
+                      width="75px"
+                      height="75px"
                       opacity="1.0"
                       alt="Vudu_Image"
                     />
@@ -381,8 +382,8 @@ class Counter extends Component {
                     <img
                       id="itunes"
                       src={itunes_icon}
-                      width="100px"
-                      height="100px"
+                      width="75px"
+                      height="75px"
                       opacity="1.0"
                     />
                   </a>
@@ -398,8 +399,8 @@ class Counter extends Component {
                     <img
                       id="fandango"
                       src="https://img04.mgo-images.com/image/static/content/web/logos/fandango-now.png"
-                      width="270px"
-                      height="90px"
+                      width="150px"
+                      height="75px"
                     />
                   </a>
                 </div>
@@ -452,7 +453,13 @@ class Counter extends Component {
                 easingFunction={easeQuadInOut}
               >
                 {(value) => {
-                  value = value * 10;
+                  value = Math.abs(value * 10);
+                  if (this.state.valueEnd > 5) {
+                    this.color1 = "green";
+                  }
+                  else{
+                      this.color1= "red";
+                  }
                   const roundedValue = Math.round(value);
                   return (
                     <CircularProgressbar
@@ -460,7 +467,17 @@ class Counter extends Component {
                       text={`${roundedValue / 10}`}
                       /* This is important to include, because if you're fully managing the
         animation yourself, you'll want to disable the CSS animation. */
-                      styles={buildStyles({ pathTransition: "none" })}
+                      styles={{
+                        path: {
+                            stroke: this.color1,
+                        },
+                        trail: {
+                            stroke: "lightsteelblue",
+                        },
+                        text: {
+                            fill: this.color1,
+                        }
+                      }}
                     />
                   );
                 }}
@@ -475,15 +492,31 @@ class Counter extends Component {
                 easingFunction={easeQuadInOut}
               >
                 {(value) => {
-                  value = value * 100;
+                  value = Math.abs(value * 100);
                   const roundedValue = Math.round(value);
+                  if (this.state.avgvalueEnd > 0) {
+                    this.color1 = "green";
+                  }
+                  else{
+                      this.color1= "red";
+                  }
                   return (
                     <CircularProgressbar
                       value={value}
                       text={`${roundedValue / 100}`}
                       /* This is important to include, because if you're fully managing the
         animation yourself, you'll want to disable the CSS animation. */
-                      styles={buildStyles({ pathTransition: "none" })}
+                      styles={{
+                        path: {
+                            stroke: this.color1,
+                        },
+                        trail: {
+                            stroke: "lightsteelblue",
+                        },
+                        text: {
+                            fill: this.color1,
+                        }
+                      }}
                     />
                   );
                 }}

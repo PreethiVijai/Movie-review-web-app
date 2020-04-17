@@ -87,7 +87,7 @@ def getAbbreviation(loc):
 es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
 
 username = "scrumlords"
-password = ""
+password = "Bda2020$!"
 
 client = MongoClient("mongodb+srv://scrumlords:"+password+"@cluster0-4ef7e.gcp.mongodb.net/test?retryWrites=true&w=majority")
 db = client["scraping"]

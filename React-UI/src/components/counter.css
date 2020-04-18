@@ -1,19 +1,19 @@
 body {
-  background-color: #fbe0d7;
+  /* background-color: #fbe0d7; */
+  background-color: #0b0c10;
   margin: 0;
   font-family: "Georgia";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#page {
-  height: 100vh;
-  margin: 0;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: repeat;
-  background-size: cover;
-  background-image: url("./bg.jpg");
+.footer {
+  width: 100%;
+  background-image: url(./popcorn.jpg);
+  background-repeat: repeat-x;
+  height: 200px;
+  position: relative;
+  bottom: 0;
 }
 
 #page .header {
@@ -22,12 +22,14 @@ body {
 }
 body #page .header .logoheader text {
   text-align: center;
-  color: hsl(283, 86%, 30%);
+  /*color: hsl(283, 86%, 30%);*/
+  color: #66fcf1;
   font-size: -webkit-xxx-large;
 }
 body #page #moviename {
   text-align: center;
-  color: hsl(283, 86%, 30%);
+  /*color: hsl(283, 86%, 30%);*/
+  color: #66fcf1;
   font: 40px Arial, sans-serif;
   font-weight: bolder;
   height: 80px;
@@ -85,7 +87,8 @@ body #page .header .logoheader img {
 #page #all_details #row3 #heatmap {
   font-size: x-large;
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: darkred;
+  /*color: darkred;*/
+  color: #66fcf1;
   font-weight: bolder;
 }
 #page #all_details #row3 #heatmap {
@@ -99,7 +102,8 @@ body #page .header .logoheader img {
 #page #all_details #row1 #plot_Val {
   font-size: medium;
   font-family: Arial, sans-serif;
-  color: #000000;
+  /*color: #000000;*/
+  color: #ffffff;
   font-weight: normal;
   line-height: 170%;
 }
@@ -200,7 +204,8 @@ body #page .header .logoheader img {
 #page #row2 #other_details #mv_genre {
   font-size: x-large;
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: darkred;
+  /*color: darkred;*/
+  color: #66fcf1;  
   font-weight: bolder;
 }
 #page #row2 #other_details #mv_language #lang_span,
@@ -208,7 +213,8 @@ body #page .header .logoheader img {
 #page #row2 #other_details #mv_runtime #runtime_span {
   font-size: larger;
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: #191970;
+  /*color: #191970;*/
+  color: #ffffff;
   font-weight: big;
   line-height: 170%;
 }
@@ -216,7 +222,8 @@ body #page .header .logoheader img {
 #page #row1 #cast_names #cast_span li {
   font-size: normal;
   font-family: Georgia, "Times New Roman", Times, serif;
-  color: #191970;
+  /*color: #191970;*/
+  color: #ffffff;
   font-weight: big;
   line-height: 130%;
 }

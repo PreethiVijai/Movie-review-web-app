@@ -31,7 +31,7 @@ class Counter extends Component {
   };
 
   // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
-  SUGGEST_URL = "http://34.83.211.68:8080/suggest";
+  SUGGEST_URL = "http://35.233.136.12:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -308,7 +308,7 @@ class Counter extends Component {
               </div>
             </div>
             <div id="cast_names" style={divStyle}>
-              CAST:
+              CAST
               <span id="cast_span">
                 <ul>
                   {this.state.castitems.map((listitem) => (
@@ -407,7 +407,7 @@ class Counter extends Component {
               </div>
             </div>
             <div id="plot" style={divStyle}>
-              PLOT:
+              STORY LINE
               <div id="plot_Val">{plotval}</div>
             </div>
           </div>
@@ -425,16 +425,16 @@ class Counter extends Component {
             ></iframe>
             <div id="other_details" style={divStyle}>
               <div id="mv_language">
-                LANGUAGE: <span id="lang_span">{language}</span>
+                LANGUAGE <span id="lang_span">{language}</span>
               </div>
               <div id="mv_year">
-                RELEASE YEAR: <span id="year_span">{year}</span>
+                RELEASE YEAR <span id="year_span">{year}</span>
               </div>
               <div id="mv_runtime">
-                RUNTIME: <span id="runtime_span">{runtime}</span>
+                RUNTIME <span id="runtime_span">{runtime}</span>
               </div>
               <div id="mv_genre">
-                GENRE:
+                GENRE
                 <span id="genre_span">
                   <ul>
                     {this.state.genreitems.map((listitem) => (
@@ -445,7 +445,7 @@ class Counter extends Component {
               </div>
             </div>
             <div id="imdb_rating" style={divStyle}>
-              IMDB Rating:
+              IMDB Rating
               <AnimatedProgressProvider
                 valueStart={0}
                 valueEnd={this.state.valueEnd}
@@ -484,7 +484,7 @@ class Counter extends Component {
               </AnimatedProgressProvider>
             </div>
             <div id="twitter_rating" style={divStyle}>
-              Twitter Rating:
+              Twitter Rating
               <AnimatedProgressProvider
                 valueStart={0}
                 valueEnd={this.state.avgvalueEnd}
@@ -526,7 +526,7 @@ class Counter extends Component {
 
           <div id="row3">
             <div id="reviews" style={divStyle}>
-              REVIEWS:
+              REVIEWS
               <ul>
                 {this.state.reviews.map((listitem) => (
                   <li className="list_group_item">{listitem}</li>
@@ -534,11 +534,12 @@ class Counter extends Component {
               </ul>
             </div>
             <div id="heatmap">
-              HEATMAP: 
+              HEATMAP 
               <USAmap stateNames={this.state.tweetLocations}></USAmap>
             </div>
           </div>
         </div>
+        <div class="footer"></div>
       </div>
     );
   }
@@ -546,7 +547,8 @@ class Counter extends Component {
 
 const divStyle ={
 
-    border: '5px solid lightpink',
+    /*border: '5px solid lightpink',*/
+    border: '5px solid #45a29e',
     borderRadius: '20px',
     padding:'5px'
 

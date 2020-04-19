@@ -9,7 +9,7 @@ class USAmap extends Component {
   };
 
   componentDidMount() {
-    const stateName1 = "navy";
+    const stateName1 = "#66fcf1";
     this.stateNames = this.props.stateNames;
     this.results = {};
     console.log(this.stateNames);

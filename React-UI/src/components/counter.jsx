@@ -15,7 +15,7 @@ import styled from 'styled-components';
 // Animation
 import AnimatedProgressProvider from "../AnimatedProgressProvider";
 import USAmap from "../heatmap";
-
+import Footer from "../footer"
 class Counter extends Component {
   state = {
     value: "",
@@ -31,7 +31,7 @@ class Counter extends Component {
   };
 
   // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
-  SUGGEST_URL = "http://35.233.136.12:8080/suggest";
+  SUGGEST_URL = "http://34.82.187.203:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -266,281 +266,284 @@ class Counter extends Component {
     );
 
     return (
-      <div id="page">
-        <div class="header">
-          <div class="bg-image"></div>
-          <span class="logoheader">
-            <img
-              alt=""
-              src={logo}
-              width="50"
-              height="50"
-              backgroundColor="transparent"
-            />
-            <text>CINEPHILE</text>
-          </span>
+        <body>
+            <div id="page">
+                <div class="header">
+                    <div class="bg-image"></div>
+                    <span class="logoheader">
+                        <img
+                            alt=""
+                            src={logo}
+                            width="50"
+                            height="50"
+                            backgroundColor="transparent"
+                        />
+                        <text>CINEPHILE</text>
+                    </span>
 
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={(suggestion) => suggestion.name}
-            renderSuggestion={this.renderSuggestion}
-            onSuggestionSelected={this.onSuggestionSelected}
-            inputProps={inputProps}
-            renderInputComponent={renderInputComponent}
-          />
-        </div>
-        {/* header div ends here */}
-        <div id="moviename"></div>
+                    <Autosuggest
+                        suggestions={suggestions}
+                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                        getSuggestionValue={(suggestion) => suggestion.name}
+                        renderSuggestion={this.renderSuggestion}
+                        onSuggestionSelected={this.onSuggestionSelected}
+                        inputProps={inputProps}
+                        renderInputComponent={renderInputComponent}
+                    />
+                </div>
+                {/* header div ends here */}
+                <div id="moviename"></div>
 
-        <div id="all_details">
-          <div id="row1">
-            <div id="row1_part1">
-              <div id="movie_image">
-                <img
-                  id="mv_img"
-                  src="https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg"
-                  width="250px"
-                  height="300px"
-                  alt="Movie_Image"
-                />
-              </div>
-            </div>
-            <div id="cast_names" style={divStyle}>
-              CAST
-              <span id="cast_span">
-                <ul>
-                  {this.state.castitems.map((listitem) => (
-                    <li className="list_group_item">{listitem}</li>
-                  ))}
-                </ul>
-              </span>
-            </div>
-            <div id="where_to_watch" style={divStyle}>
-              <div id="netflix_hulu_vudu">
-                <div id="netflix_div">
-                  <a
-                    href={netflix_href}
-                    target="_blank"
-                    title={netflix_href}
-                    id="netflix_watchlink"
-                  >
-                    <img
-                      id="netflix"
-                      src={netflix_icon}
-                      width="75px"
-                      height="75px"
-                      opacity="1.0"
-                      alt="Netflix_Image"
-                    />
-                  </a>
-                </div>
-                <div id="hulu_div">
-                  <a
-                    href={hulu_href}
-                    target="_blank"
-                    title={hulu_href}
-                    id="hulu_watchlink"
-                  >
-                    <img
-                      id="hulu"
-                      src={hulu_icon}
-                      width="75px"
-                      height="75px"
-                      opacity="1.0"
-                      alt="Hulu_Image"
-                    />
-                  </a>
-                </div>
-                <div id="vudu_div">
-                  <a
-                    href={vudu_href}
-                    target="_blank"
-                    title={vudu_href}
-                    id="vudu_watchlink"
-                  >
-                    <img
-                      id="vudu"
-                      src={vudu_icon}
-                      width="75px"
-                      height="75px"
-                      opacity="1.0"
-                      alt="Vudu_Image"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div id="itunes_fandango">
-                <div id="itunes_div">
-                  <a
-                    href={itunes_href}
-                    target="_blank"
-                    title={itunes_href}
-                    id="itunes_watchlink"
-                  >
-                    <img
-                      id="itunes"
-                      src={itunes_icon}
-                      width="75px"
-                      height="75px"
-                      opacity="1.0"
-                    />
-                  </a>
-                </div>
-                <div id="fandango_div">
-                  <a
-                    href={fandango_href}
-                    target="_blank"
-                    title={fandango_href}
-                    id="fandango_watchlink"
-                    opacity="1.0"
-                  >
-                    <img
-                      id="fandango"
-                      src="https://img04.mgo-images.com/image/static/content/web/logos/fandango-now.png"
-                      width="150px"
-                      height="75px"
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div id="plot" style={divStyle}>
-              STORY LINE
-              <div id="plot_Val">{plotval}</div>
-            </div>
-          </div>
-          <div id="row2">
-            <iframe
-              id="iframeid"
-              src={link}
-              width="570"
-              height="280"
-              allowfullscreen="true"
-              mozallowfullscreen="true"
-              webkitallowfullscreen="true"
-              frameborder="no"
-              scrolling="no"
-            ></iframe>
-            <div id="other_details" style={divStyle}>
-              <div id="mv_language">
-                LANGUAGE <span id="lang_span">{language}</span>
-              </div>
-              <div id="mv_year">
-                RELEASE YEAR <span id="year_span">{year}</span>
-              </div>
-              <div id="mv_runtime">
-                RUNTIME <span id="runtime_span">{runtime}</span>
-              </div>
-              <div id="mv_genre">
-                GENRE
-                <span id="genre_span">
-                  <ul>
-                    {this.state.genreitems.map((listitem) => (
-                      <li className="list_group_item">{listitem}</li>
-                    ))}
-                  </ul>
-                </span>
-              </div>
-            </div>
-            <div id="imdb_rating" style={divStyle}>
-              IMDB Rating
-              <AnimatedProgressProvider
-                valueStart={0}
-                valueEnd={this.state.valueEnd}
-                duration={1.4}
-                easingFunction={easeQuadInOut}
-              >
-                {(value) => {
-                  value = Math.abs(value * 10);
-                  if (this.state.valueEnd > 5) {
-                    this.color1 = "green";
-                  }
-                  else{
-                      this.color1= "red";
-                  }
-                  const roundedValue = Math.round(value);
-                  return (
-                    <CircularProgressbar
-                      value={value}
-                      text={`${roundedValue / 10}`}
-                      /* This is important to include, because if you're fully managing the
-        animation yourself, you'll want to disable the CSS animation. */
-                      styles={{
-                        path: {
-                            stroke: this.color1,
-                        },
-                        trail: {
-                            stroke: "lightsteelblue",
-                        },
-                        text: {
-                            fill: this.color1,
-                        }
-                      }}
-                    />
-                  );
-                }}
-              </AnimatedProgressProvider>
-            </div>
-            <div id="twitter_rating" style={divStyle}>
-              Twitter Rating
-              <AnimatedProgressProvider
-                valueStart={0}
-                valueEnd={this.state.avgvalueEnd}
-                duration={1.4}
-                easingFunction={easeQuadInOut}
-              >
-                {(value) => {
-                  value = Math.abs(value * 100);
-                  const roundedValue = Math.round(value);
-                  if (this.state.avgvalueEnd > 0) {
-                    this.color1 = "green";
-                  }
-                  else{
-                      this.color1= "red";
-                  }
-                  return (
-                    <CircularProgressbar
-                      value={value}
-                      text={`${roundedValue / 100}`}
-                      /* This is important to include, because if you're fully managing the
-        animation yourself, you'll want to disable the CSS animation. */
-                      styles={{
-                        path: {
-                            stroke: this.color1,
-                        },
-                        trail: {
-                            stroke: "lightsteelblue",
-                        },
-                        text: {
-                            fill: this.color1,
-                        }
-                      }}
-                    />
-                  );
-                }}
-              </AnimatedProgressProvider>
-            </div>
-          </div>
+                <div id="all_details">
+                    <div id="row1">
+                        <div id="row1_part1">
+                            <div id="movie_image">
+                                <img
+                                    id="mv_img"
+                                    src="https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg"
+                                    width="250px"
+                                    height="300px"
+                                    alt="Movie_Image"
+                                />
+                            </div>
+                        </div>
+                        <div id="cast_names" style={divStyle}>
+                            CAST
+                            <span id="cast_span">
+                                <ul>
+                                    {this.state.castitems.map((listitem) => (
+                                        <li className="list_group_item">{listitem}</li>
+                                    ))}
+                                </ul>
+                            </span>
+                        </div>
+                        <div id="where_to_watch" style={divStyle}>
+                            <div id="netflix_hulu_vudu">
+                                <div id="netflix_div">
+                                    <a
+                                        href={netflix_href}
+                                        target="_blank"
+                                        title={netflix_href}
+                                        id="netflix_watchlink"
+                                    >
+                                        <img
+                                            id="netflix"
+                                            src={netflix_icon}
+                                            width="75px"
+                                            height="75px"
+                                            opacity="1.0"
+                                            alt="Netflix_Image"
+                                        />
+                                    </a>
+                                </div>
+                                <div id="hulu_div">
+                                    <a
+                                        href={hulu_href}
+                                        target="_blank"
+                                        title={hulu_href}
+                                        id="hulu_watchlink"
+                                    >
+                                        <img
+                                            id="hulu"
+                                            src={hulu_icon}
+                                            width="75px"
+                                            height="75px"
+                                            opacity="1.0"
+                                            alt="Hulu_Image"
+                                        />
+                                    </a>
+                                </div>
+                                <div id="vudu_div">
+                                    <a
+                                        href={vudu_href}
+                                        target="_blank"
+                                        title={vudu_href}
+                                        id="vudu_watchlink"
+                                    >
+                                        <img
+                                            id="vudu"
+                                            src={vudu_icon}
+                                            width="75px"
+                                            height="75px"
+                                            opacity="1.0"
+                                            alt="Vudu_Image"
+                                        />
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="itunes_fandango">
+                                <div id="itunes_div">
+                                    <a
+                                        href={itunes_href}
+                                        target="_blank"
+                                        title={itunes_href}
+                                        id="itunes_watchlink"
+                                    >
+                                        <img
+                                            id="itunes"
+                                            src={itunes_icon}
+                                            width="75px"
+                                            height="75px"
+                                            opacity="1.0"
+                                        />
+                                    </a>
+                                </div>
+                                <div id="fandango_div">
+                                    <a
+                                        href={fandango_href}
+                                        target="_blank"
+                                        title={fandango_href}
+                                        id="fandango_watchlink"
+                                        opacity="1.0"
+                                    >
+                                        <img
+                                            id="fandango"
+                                            src="https://img04.mgo-images.com/image/static/content/web/logos/fandango-now.png"
+                                            width="150px"
+                                            height="75px"
+                                        />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="plot" style={divStyle}>
+                            STORY LINE
+                            <div id="plot_Val">{plotval}</div>
+                        </div>
+                    </div>
+                    <div id="row2">
+                        <iframe
+                            id="iframeid"
+                            src={link}
+                            width="570"
+                            height="280"
+                            allowfullscreen="true"
+                            mozallowfullscreen="true"
+                            webkitallowfullscreen="true"
+                            frameborder="no"
+                            scrolling="no"
+                        ></iframe>
+                        <div id="other_details" style={divStyle}>
+                            <div id="mv_language">
+                                LANGUAGE <span id="lang_span">{language}</span>
+                            </div>
+                            <div id="mv_year">
+                                RELEASE YEAR <span id="year_span">{year}</span>
+                            </div>
+                            <div id="mv_runtime">
+                                RUNTIME <span id="runtime_span">{runtime}</span>
+                            </div>
+                            <div id="mv_genre">
+                                GENRE
+                                <span id="genre_span">
+                                    <ul>
+                                        {this.state.genreitems.map((listitem) => (
+                                            <li className="list_group_item">{listitem}</li>
+                                        ))}
+                                    </ul>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="imdb_rating" style={divStyle}>
+                            IMDB Rating
+                            <AnimatedProgressProvider
+                                valueStart={0}
+                                valueEnd={this.state.valueEnd}
+                                duration={1.4}
+                                easingFunction={easeQuadInOut}
+                            >
+                                {(value) => {
+                                    value = Math.abs(value * 10);
+                                    if (this.state.valueEnd > 5) {
+                                        this.color1 = "green";
+                                    } else {
+                                        this.color1 = "red";
+                                    }
+                                    const roundedValue = Math.round(value);
+                                    return (
+                                        <CircularProgressbar
+                                            value={value}
+                                            text={`${roundedValue / 10}`}
+                                            /* This is important to include, because if you're fully managing the
+                                            animation yourself, you'll want to disable the CSS animation. */
+                                            styles={{
+                                                path: {
+                                                    stroke: this.color1,
+                                                },
+                                                trail: {
+                                                    stroke: "lightsteelblue",
+                                                },
+                                                text: {
+                                                    fill: this.color1,
+                                                },
+                                            }}
+                                        />
+                                    );
+                                }}
+                            </AnimatedProgressProvider>
+                        </div>
+                        <div id="twitter_rating" style={divStyle}>
+                            Twitter Rating
+                            <AnimatedProgressProvider
+                                valueStart={0}
+                                valueEnd={this.state.avgvalueEnd}
+                                duration={1.4}
+                                easingFunction={easeQuadInOut}
+                            >
+                                {(value) => {
+                                    value = Math.abs(value * 100);
+                                    const roundedValue = Math.round(value);
+                                    if (this.state.avgvalueEnd > 0) {
+                                        this.color1 = "green";
+                                    } else {
+                                        this.color1 = "red";
+                                    }
+                                    return (
+                                        <CircularProgressbar
+                                            value={value}
+                                            text={`${roundedValue / 100}`}
+                                            /* This is important to include, because if you're fully managing the
+                                            animation yourself, you'll want to disable the CSS animation. */
+                                            styles={{
+                                                path: {
+                                                    stroke: this.color1,
+                                                },
+                                                trail: {
+                                                    stroke: "lightsteelblue",
+                                                },
+                                                text: {
+                                                    fill: this.color1,
+                                                },
+                                            }}
+                                        />
+                                    );
+                                }}
+                            </AnimatedProgressProvider>
+                        </div>
+                    </div>
 
-          <div id="row3">
-            <div id="reviews" style={divStyle}>
-              REVIEWS
-              <ul>
-                {this.state.reviews.map((listitem) => (
-                  <li className="list_group_item">{listitem}</li>
-                ))}
-              </ul>
+                    <div id="row3">
+                        <div id="reviews" style={divStyle}>
+                            REVIEWS
+                                <ul>
+                                    {this.state.reviews.map((listitem) => (
+                                        <li className="list_group_item">{listitem}</li>
+                                    ))}
+                                </ul>
+                        </div>
+                        <div id="heatmap">
+                            HEATMAP
+                            <USAmap stateNames={this.state.tweetLocations}></USAmap>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="heatmap">
-              HEATMAP 
-              <USAmap stateNames={this.state.tweetLocations}></USAmap>
-            </div>
-          </div>
-        </div>
-        <div class="footer"></div>
-      </div>
+            <footer class="footer">
+                <Footer />
+            </footer>
+        </body>
+
     );
   }
 }

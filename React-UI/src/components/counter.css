@@ -1,19 +1,24 @@
 body {
   /* background-color: #fbe0d7; */
   background-color: #0b0c10;
+  height: 100%;
   margin: 0;
   font-family: "Georgia";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
 }
 
+#page{
+        flex: 1 0 auto;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+        /*margin-bottom: -300px;*/
+}
 .footer {
-  width: 100%;
-  background-image: url(./popcorn.jpg);
-  background-repeat: repeat-x;
-  height: 200px;
-  position: relative;
-  bottom: 0;
+  flex-shrink: 0;
 }
 
 #page .header {
@@ -60,7 +65,7 @@ body #page .header .logoheader img {
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 10px;
   margin-left: 15px;
-  max-height: 100px;
+  /*max-height: 100px;*/
 }
 #page #all_details #row1 {
   display: grid;

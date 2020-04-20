@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./counter.css";
 import logo from "./cine.png";
+import film_icon from "./filmreel.jpg";
 import netflix_icon from "./netflix.png";
+import search_icon from "./searchicon2.jpg";
 import itunes_icon from "./itunes.png";
 import hulu_icon from "./hulu-icon.png";
 import vudu_icon from "./vudu.png";
@@ -19,6 +21,7 @@ import Footer from "../footer"
 class Counter extends Component {
   state = {
     value: "",
+    toVisible: "",
     suggestions: [],
     cacheAPISugestions: [],
     isOpen: false,
@@ -31,7 +34,7 @@ class Counter extends Component {
   };
 
   // SUGGEST_URL = "http://34.82.210.3:8080/suggest";
-  SUGGEST_URL = "http://34.82.187.203:8080/suggest";
+  SUGGEST_URL = "http://34.82.245.28:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
   componentWillMount() {
@@ -65,6 +68,7 @@ class Counter extends Component {
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: [],
+      /*toVisible: "",*/
     });
   };
   onSuggestionSelected = (event, { suggestionValue }) => {
@@ -73,6 +77,7 @@ class Counter extends Component {
     if (filterRes !== 0) {
       this.setState({
         filterResults: filterRes,
+        toVisible: "1",
         // }, () => {
         //   axios.get(this.REVIEWS_URL, {
         //     params: {
@@ -108,6 +113,7 @@ class Counter extends Component {
   }
 
   render() {
+    const style = this.state.toVisible ? {} : { visibility : "hidden" };  
     let videoid = "vi2308751129";
     let link = `https://www.imdb.com/videoembed/${videoid}`;
     let plotval = "";
@@ -257,7 +263,8 @@ class Counter extends Component {
       <div className="inputContainer">
         <img
           className="icon"
-          src="https://img.icons8.com/ios-filled/50/000000/search.png"
+          /*src="https://img.icons8.com/ios-filled/50/000000/search.png"*/
+          src={search_icon}
           width="20px"
           height="20px"
         />
@@ -268,12 +275,14 @@ class Counter extends Component {
     return (
         <body>
             <div id="page">
+                
                 <div class="header">
                     <div class="bg-image"></div>
                     <span class="logoheader">
                         <img
                             alt=""
-                            src={logo}
+                            /*src={logo}*/
+                            src={film_icon}
                             width="50"
                             height="50"
                             backgroundColor="transparent"
@@ -293,9 +302,9 @@ class Counter extends Component {
                     />
                 </div>
                 {/* header div ends here */}
-                <div id="moviename"></div>
+                <div id="moviename" style={style}></div>
 
-                <div id="all_details">
+                <div id="all_details" style={style}>
                     <div id="row1">
                         <div id="row1_part1">
                             <div id="movie_image">

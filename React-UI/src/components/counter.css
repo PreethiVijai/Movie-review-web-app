@@ -1,6 +1,6 @@
 body {
   /* background-color: #fbe0d7; */
-  background-color: #0b0c10;
+  /*background-color: #0b0c10;*/
   height: 100%;
   margin: 0;
   font-family: "Georgia";
@@ -12,13 +12,14 @@ body {
 
 #page{
         flex: 1 0 auto;
-
+        background-color: #0b0c10;
   /* Equal to height of footer */
   /* But also accounting for potential margin-bottom of last child */
         /*margin-bottom: -300px;*/
 }
 .footer {
   flex-shrink: 0;
+  background-color:  #ffffff;
 }
 
 #page .header {

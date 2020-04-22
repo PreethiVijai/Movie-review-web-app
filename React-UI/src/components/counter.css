@@ -1,6 +1,6 @@
 body {
   /* background-color: #fbe0d7; */
-  /*background-color: #0b0c10;*/
+  background-color: #0b0c10;
   height: 100%;
   margin: 0;
   font-family: "Georgia";
@@ -10,16 +10,16 @@ body {
   flex-direction: column;
 }
 
-#page{
-        flex: 1 0 auto;
-        background-color: #0b0c10;
+#page {
+  flex: 1 0 auto;
+  /* background-color: #0b0c10; */
   /* Equal to height of footer */
   /* But also accounting for potential margin-bottom of last child */
-        /*margin-bottom: -300px;*/
+  /*margin-bottom: -300px;*/
 }
 .footer {
   flex-shrink: 0;
-  background-color:  #ffffff;
+  background-color: #ffffff;
 }
 
 #page .header {
@@ -66,12 +66,13 @@ body #page .header .logoheader img {
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 10px;
   margin-left: 15px;
-  /*max-height: 100px;*/
+  max-height: 100px;
 }
 #page #all_details #row1 {
   display: grid;
   grid-template-columns: 0.5fr 0.5fr 0.9fr 1.1fr;
   grid-gap: 10px;
+  padding-bottom: 25px;
 }
 #page #row1 #where_to_watch {
   display: grid;
@@ -97,12 +98,14 @@ body #page .header .logoheader img {
   color: #66fcf1;
   font-weight: bolder;
 }
+#page #all_details #row3 #reviews ul {
+  color: white;
+}
 #page #all_details #row3 #heatmap {
   text-align: center;
 }
 #page #all_details #row2 #imdb_rating,
 #page #all_details #row2 #twitter_rating {
-  margin-top: 10px;
   text-align: center;
 }
 #page #all_details #row1 #plot_Val {
@@ -117,6 +120,7 @@ body #page .header .logoheader img {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   grid-gap: 10px;
+  padding-bottom: 25px;
 }
 #page #all_details #row3 {
   display: grid;
@@ -211,7 +215,7 @@ body #page .header .logoheader img {
   font-size: x-large;
   font-family: Georgia, "Times New Roman", Times, serif;
   /*color: darkred;*/
-  color: #66fcf1;  
+  color: #66fcf1;
   font-weight: bolder;
 }
 #page #row2 #other_details #mv_language #lang_span,

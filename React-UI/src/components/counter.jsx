@@ -305,13 +305,13 @@ class Counter extends Component {
 
           <div id="all_details" style={style}>
             <div id="row1">
-              <div id="row1_part1">
+              <div id="row1_part1" style={divStyle}>
                 <div id="movie_image">
                   <img
                     id="mv_img"
                     src="https://lajoyalink.com/wp-content/uploads/2018/03/Movie.jpg"
                     width="250px"
-                    height="300px"
+                    height="400px"
                     alt="Movie_Image"
                   />
                 </div>

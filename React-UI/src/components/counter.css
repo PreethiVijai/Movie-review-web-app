@@ -63,10 +63,10 @@ body #page .header .logoheader img {
 }
 #page #all_details {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
   grid-gap: 10px;
   margin-left: 15px;
-  max-height: 100px;
+  /* max-height: 100px; */
 }
 #page #all_details #row1 {
   display: grid;
@@ -80,7 +80,7 @@ body #page .header .logoheader img {
   grid-gap: 10px;
 }
 #page #row1 #row1_part1 #movie_image {
-  padding-right: 35px;
+  /* padding-right: 35px; */
   float: left;
 }
 #page #all_details #row2 #iframeid {
@@ -121,11 +121,13 @@ body #page .header .logoheader img {
   grid-template-columns: 2fr 1fr 1fr 1fr;
   grid-gap: 10px;
   padding-bottom: 25px;
+  grid-auto-rows: 430px;
 }
 #page #all_details #row3 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+  padding-bottom: 25px;
 }
 #page #row1 #where_to_watch #netflix_hulu_vudu #netflix_div,
 #page #row1 #where_to_watch #netflix_hulu_vudu #hulu_div,

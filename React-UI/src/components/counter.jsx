@@ -30,7 +30,7 @@ class Counter extends Component {
     genreitems: ["List Item 1", "List Item 2", "List Item 3"],
     castitems: ["item1", "item2", "item3", "item4", "item5"],
     reviews: ["item1", "item2", "item3", "item4", "item5"],
-    tweetLocations: [],
+    tweetLocations: []
   };
 
   SUGGEST_URL = "http://34.82.210.3:8080/suggest";
@@ -256,6 +256,7 @@ class Counter extends Component {
 
     const inputProps = {
       placeholder: " Enter movie name or year",
+
       value,
       onChange: this.onChange,
     };
@@ -281,12 +282,13 @@ class Counter extends Component {
               <img
                 alt=""
                 /*src={logo}*/
+                style={{animation: 'spin 3s linear infinite'}}
                 src={film_icon}
                 width="50"
                 height="50"
                 backgroundColor="transparent"
               />
-              <text>CINEPHILE</text>
+            <text style={{ padding: '20px' }} >CINEPHILE</text>
             </span>
 
             <Autosuggest
@@ -561,5 +563,6 @@ const divStyle = {
   borderRadius: "20px",
   padding: "5px",
 };
+
 
 export default Counter;

@@ -1,6 +1,8 @@
 body {
   /* background-color: #fbe0d7; */
-  background-color: #0b0c10;
+  /*background-color: #0b0c10;*/
+  background: url(movie_collage.jpg) no-repeat center center fixed;
+  background-size: cover;
   height: 100%;
   margin: 0;
   font-family: "Georgia";
@@ -30,6 +32,7 @@ body #page .header .logoheader text {
   text-align: center;
   /*color: hsl(283, 86%, 30%);*/
   color: #66fcf1;
+
   font-size: -webkit-xxx-large;
 }
 body #page #moviename {
@@ -245,4 +248,9 @@ body #page .header .logoheader img {
 #page #where_to_watch #vudu.ishover:hover,
 #page #where_to_watch #fandango.ishover:hover {
   transform: scale(1.25);
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
 }

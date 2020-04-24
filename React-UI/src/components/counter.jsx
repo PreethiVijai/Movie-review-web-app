@@ -33,7 +33,7 @@ class Counter extends Component {
     tweetLocations: [],
   };
 
-  SUGGEST_URL = "http://34.82.210.3:8080/suggest";
+  SUGGEST_URL = "http://34.83.236.239:8080/suggest";
   //SUGGEST_URL = "http://localhost:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 

@@ -261,7 +261,7 @@ class Counter extends Component {
       onChange: this.onChange,
     };
     const renderInputComponent = (inputProps) => (
-      <div className="inputContainer">
+      <div className="inputContainer" >
         <img
           className="icon"
           /*src="https://img.icons8.com/ios-filled/50/000000/search.png"*/
@@ -292,6 +292,7 @@ class Counter extends Component {
             </span>
 
             <Autosuggest
+              style = {search_style}
               suggestions={suggestions}
               onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
               onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -306,7 +307,7 @@ class Counter extends Component {
           <div id="moviename" style={style}></div>
 
           <div id="all_details" style={style}>
-            <div id="row1">
+            <div id="row1" style={bgcolor}>
               <div id="row1_part1" style={divStyle}>
                 <div id="movie_image">
                   <img
@@ -422,7 +423,7 @@ class Counter extends Component {
                 <div id="plot_Val">{plotval}</div>
               </div>
             </div>
-            <div id="row2">
+            <div id="row2" style={bgcolor}>
               <iframe
                 id="iframeid"
                 src={link}
@@ -533,7 +534,7 @@ class Counter extends Component {
               </div>
             </div>
 
-            <div id="row3">
+            <div id="row3" style={bgcolor}>
               <div id="reviews" style={divStyle}>
                 REVIEWS
                 <ul>
@@ -563,6 +564,12 @@ const divStyle = {
   borderRadius: "20px",
   padding: "5px",
 };
+const bgcolor ={
+  backgroundColor:"black"
+}
+const search_style ={
+  borderRadius: "20px"
+}
 
 
 export default Counter;

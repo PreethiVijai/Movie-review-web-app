@@ -250,6 +250,10 @@ body #page .header .logoheader img {
   transform: scale(1.25);
 }
 
+.react-autosuggest__suggestions-container--open {
+  right: 603px;
+}
+
 @keyframes spin {
   from {transform:rotate(0deg);}
   to {transform:rotate(360deg);}

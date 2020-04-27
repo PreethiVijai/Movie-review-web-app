@@ -33,7 +33,7 @@ class Counter extends Component {
     tweetLocations: []
   };
 
-  SUGGEST_URL = "http://34.83.236.239:8080/suggest";
+  SUGGEST_URL = "http://35.199.151.117:8080/suggest";
   //SUGGEST_URL = "http://localhost:8080/suggest";
   // REVIEWS_URL = "http://localhost:8080/reviews";
 
@@ -231,7 +231,7 @@ class Counter extends Component {
         function changeIcons(watchlink, idName) {
           document.getElementById(watchlink).href = "#";
           document.getElementById(watchlink).title =
-            "This movie is not available on netflix";
+            "This movie is not available on the platform";
           document.getElementById(idName).style.opacity = "0.3";
           document.getElementById(idName).style.cursor = "default";
           document.getElementById(idName).classList.remove("ishover");
